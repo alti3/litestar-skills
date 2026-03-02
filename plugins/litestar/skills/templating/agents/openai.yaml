@@ -1,0 +1,3 @@
+display_name: "Litestar templating"
+short_description: "Build Litestar template-rendered responses with clean context boundaries, partial rendering, and maintainable server-side views."
+default_prompt: "Use the templating skill to solve this Litestar task."

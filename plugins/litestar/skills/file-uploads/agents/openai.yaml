@@ -1,0 +1,3 @@
+display_name: "Litestar file-uploads"
+short_description: "Implement secure file upload handling in Litestar with validation, size/type constraints, and storage pipeline integration."
+default_prompt: "Use the file-uploads skill to solve this Litestar task."

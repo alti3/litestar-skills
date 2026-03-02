@@ -1,0 +1,3 @@
+display_name: "Litestar routing"
+short_description: "Design and implement Litestar routing with route decorators, routers, controllers, path/query/header/cookie parameters, and route-level metadata."
+default_prompt: "Use the routing skill to solve this Litestar task."

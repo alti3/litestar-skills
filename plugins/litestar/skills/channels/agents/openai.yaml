@@ -1,0 +1,3 @@
+display_name: "Litestar channels"
+short_description: "Implement Litestar channels for server-side publish-subscribe streaming and real-time message fanout patterns."
+default_prompt: "Use the channels skill to solve this Litestar task."

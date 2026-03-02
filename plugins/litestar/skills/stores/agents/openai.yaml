@@ -1,0 +1,3 @@
+display_name: "Litestar stores"
+short_description: "Configure Litestar stores for caching/session/state-like persistence concerns with explicit TTL, namespace, and lifecycle control."
+default_prompt: "Use the stores skill to solve this Litestar task."

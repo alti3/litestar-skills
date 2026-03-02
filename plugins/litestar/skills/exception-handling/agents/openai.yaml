@@ -1,0 +1,3 @@
+display_name: "Litestar exception-handling"
+short_description: "Implement robust Litestar exception handling with custom exception classes, handler mapping, and consistent API error contracts."
+default_prompt: "Use the exception-handling skill to solve this Litestar task."

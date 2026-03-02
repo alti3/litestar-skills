@@ -1,0 +1,3 @@
+display_name: "Litestar events"
+short_description: "Use Litestar lifecycle events and listeners for startup/shutdown initialization, cleanup, and event-driven application behavior."
+default_prompt: "Use the events skill to solve this Litestar task."

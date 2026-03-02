@@ -1,0 +1,3 @@
+display_name: "Litestar dataclasses"
+short_description: "Use Python dataclasses with Litestar for request and response models, validation boundaries, and schema-friendly typing."
+default_prompt: "Use the dataclasses skill to solve this Litestar task."

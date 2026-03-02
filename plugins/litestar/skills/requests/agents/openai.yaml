@@ -1,0 +1,3 @@
+display_name: "Litestar requests"
+short_description: "Handle Litestar request parsing and validation for path, query, header, cookie, and body data with explicit typing and safe defaults."
+default_prompt: "Use the requests skill to solve this Litestar task."

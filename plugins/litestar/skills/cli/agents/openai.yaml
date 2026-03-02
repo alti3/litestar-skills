@@ -1,0 +1,3 @@
+display_name: "Litestar cli"
+short_description: "Use Litestar CLI capabilities for running, inspecting, and managing applications in development and operational workflows."
+default_prompt: "Use the cli skill to solve this Litestar task."

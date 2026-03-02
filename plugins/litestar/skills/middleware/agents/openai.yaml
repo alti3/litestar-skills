@@ -1,0 +1,3 @@
+display_name: "Litestar middleware"
+short_description: "Design and apply Litestar middleware for cross-cutting concerns such as CORS, compression, timing, request enrichment, and policy enforcement."
+default_prompt: "Use the middleware skill to solve this Litestar task."

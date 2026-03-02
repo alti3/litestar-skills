@@ -1,0 +1,3 @@
+display_name: "Litestar contrib"
+short_description: "Apply Litestar contrib modules and integrations safely, selecting only the pieces needed for your architecture."
+default_prompt: "Use the contrib skill to solve this Litestar task."

@@ -1,0 +1,3 @@
+display_name: "Litestar debugging"
+short_description: "Debug Litestar applications with structured diagnostics, error surfacing, and environment-aware troubleshooting workflows."
+default_prompt: "Use the debugging skill to solve this Litestar task."

@@ -1,0 +1,3 @@
+display_name: "Litestar lifecycle-hooks"
+short_description: "Use Litestar lifecycle hooks for cross-cutting setup/teardown and request/response lifecycle instrumentation."
+default_prompt: "Use the lifecycle-hooks skill to solve this Litestar task."

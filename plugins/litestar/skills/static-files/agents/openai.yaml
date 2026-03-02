@@ -1,0 +1,3 @@
+display_name: "Litestar static-files"
+short_description: "Serve and manage static assets in Litestar with safe mounting, cache headers, and production-friendly delivery behavior."
+default_prompt: "Use the static-files skill to solve this Litestar task."

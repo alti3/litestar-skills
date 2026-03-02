@@ -1,0 +1,3 @@
+display_name: "Litestar testing"
+short_description: "Test Litestar applications with test clients, dependency overrides, lifecycle control, and deterministic API assertions."
+default_prompt: "Use the testing skill to solve this Litestar task."

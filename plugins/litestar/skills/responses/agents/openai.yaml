@@ -1,0 +1,3 @@
+display_name: "Litestar responses"
+short_description: "Build Litestar responses using typed return values, Response classes, response headers/cookies, and status-code specific behavior."
+default_prompt: "Use the responses skill to solve this Litestar task."

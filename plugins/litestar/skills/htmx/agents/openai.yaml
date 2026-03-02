@@ -1,0 +1,3 @@
+display_name: "Litestar htmx"
+short_description: "Build HTMX-driven Litestar endpoints for partial rendering, progressive enhancement, and server-driven UI interactions."
+default_prompt: "Use the htmx skill to solve this Litestar task."

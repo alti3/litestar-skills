@@ -1,0 +1,3 @@
+display_name: "Litestar plugins"
+short_description: "Select and configure Litestar plugins, including SQLAlchemy, Piccolo, attrs, pydantic, dataclass, msgspec, and TypedDict integrations."
+default_prompt: "Use the plugins skill to solve this Litestar task."

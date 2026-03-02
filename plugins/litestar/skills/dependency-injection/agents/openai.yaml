@@ -1,0 +1,3 @@
+display_name: "Litestar dependency-injection"
+short_description: "Apply Litestar dependency injection using Provide, scoped dependencies, and clean service wiring for handlers, controllers, and routers."
+default_prompt: "Use the dependency-injection skill to solve this Litestar task."

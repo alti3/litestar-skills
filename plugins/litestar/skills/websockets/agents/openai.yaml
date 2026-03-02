@@ -1,0 +1,3 @@
+display_name: "Litestar websockets"
+short_description: "Build Litestar WebSocket endpoints with connection lifecycle control, message handling, authentication, and graceful disconnect behavior."
+default_prompt: "Use the websockets skill to solve this Litestar task."

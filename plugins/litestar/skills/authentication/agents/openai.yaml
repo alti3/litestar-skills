@@ -1,0 +1,3 @@
+display_name: "Litestar authentication"
+short_description: "Implement authentication and authorization in Litestar using guards, session/JWT auth middleware, and route protection patterns."
+default_prompt: "Use the authentication skill to solve this Litestar task."

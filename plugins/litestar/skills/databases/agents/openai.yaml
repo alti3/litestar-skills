@@ -1,0 +1,3 @@
+display_name: "Litestar databases"
+short_description: "Build Litestar database integrations including SQLAlchemy and Piccolo setup, plugin usage, serialization, and repository patterns."
+default_prompt: "Use the databases skill to solve this Litestar task."

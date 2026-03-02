@@ -1,0 +1,3 @@
+display_name: "Litestar custom-types"
+short_description: "Add custom type support in Litestar for parsing, validation, and OpenAPI schema compatibility."
+default_prompt: "Use the custom-types skill to solve this Litestar task."
