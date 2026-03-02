@@ -4,24 +4,26 @@ Agent skills for building Litestar web APIs.
 
 ## Installation / Usage
 
-Install by pulling this repo, then copying skills into your Codex skills directory.
+Install from GitHub with the `skills` CLI.
 
 ### Option A: `bunx --bun`
 
 ```bash
-bunx --bun degit taher/litestar-skills litestar-skills
-cd litestar-skills
-mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
-cp -R plugins/litestar/skills/* "${CODEX_HOME:-$HOME/.codex}/skills/"
+bunx --bun skills@latest add https://github.com/taher/litestar-skills
 ```
 
 ### Option B: `npx`
 
 ```bash
-npx degit taher/litestar-skills litestar-skills
-cd litestar-skills
-mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
-cp -R plugins/litestar/skills/* "${CODEX_HOME:-$HOME/.codex}/skills/"
+npx skills@latest add https://github.com/taher/litestar-skills
+```
+
+Install a specific Litestar skill from this repository:
+
+```bash
+bunx --bun skills@latest add https://github.com/taher/litestar-skills --skill routing
+# or
+npx skills@latest add https://github.com/taher/litestar-skills --skill routing
 ```
 
 After install, your agent can use skills by name (for example: `routing`, `dto`, `testing`).
