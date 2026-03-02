@@ -1,58 +1,46 @@
 ---
 name: routing
-description: Design and implement Litestar routing with route decorators, routers, controllers, path/query/header/cookie parameters, and route-level metadata.
+description: Design and implement Litestar routing with handlers, routers, controllers, path design, parameter typing, and route-level metadata/dependencies. Use when creating or refactoring endpoint topology and URL contracts. Do not use for purely internal service logic unrelated to HTTP route structure.
 ---
 
 # Routing
 
-Use this skill when designing endpoint structure, grouping handlers, or fixing route parameter behavior.
+## Execution Workflow
 
-## Workflow
+1. Define endpoint contracts with handler decorators and typed parameters.
+2. Group related endpoints into routers or controllers.
+3. Apply route-level metadata (tags, dependencies, guards, response config) intentionally.
+4. Validate path matching, precedence, and parameter parsing behavior.
 
-1. Start with handler decorators (`@get`, `@post`, etc.).
-2. Group related handlers into `Router` or `Controller` units.
-3. Validate path parameters and convert types using type hints.
-4. Add route-level concerns (`tags`, guards, dependencies) where needed.
+## Implementation Rules
 
-## Core Patterns
+- Keep URL design stable, resource-oriented, and version-aware.
+- Keep handlers thin; delegate business logic to services.
+- Use explicit path converters and narrow parameter types.
+- Apply dependencies and guards at the narrowest effective scope.
 
-### Route Handler
+## Example Pattern
 
 ```python
-from litestar import get
+from litestar import Router, get
 
-@get("/users/{user_id:int}")
+@get("/{user_id:int}")
 async def get_user(user_id: int) -> dict[str, int]:
     return {"user_id": user_id}
-```
-
-### Router
-
-```python
-from litestar import Router
 
 user_router = Router(path="/users", route_handlers=[get_user])
 ```
 
-### Controller
+## Validation Checklist
 
-```python
-from litestar import Controller, get
+- Confirm route registration and conflict resolution behave as expected.
+- Confirm parameter coercion/validation aligns with declared types.
+- Confirm route-level metadata appears correctly in generated schema/docs.
 
-class UserController(Controller):
-    path = "/users"
+## Cross-Skill Handoffs
 
-    @get("/{user_id:int}")
-    async def retrieve(self, user_id: int) -> dict[str, int]:
-        return {"user_id": user_id}
-```
-
-## Routing Checklist
-
-- Explicitly type path/query/body inputs.
-- Prefer routers/controllers for domain grouping.
-- Keep handler functions thin; call service layer.
-- Apply guards/dependencies at the narrowest useful scope.
+- Use `requests` and `responses` for transport contract depth.
+- Use `authentication` and `dependency-injection` for route-scoped security/services.
 
 ## Litestar References
 

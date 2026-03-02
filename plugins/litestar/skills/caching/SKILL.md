@@ -1,20 +1,25 @@
 ---
 name: caching
-description: Add and tune Litestar response caching with route-level cache controls, cache-key strategy, and invalidation-aware API behavior.
+description: Configure Litestar response caching with route-level cache controls, key design, TTL strategy, and invalidation-aware behavior. Use when optimizing read-heavy endpoints or reducing repeated computation. Do not use for mutable workflows that require immediate consistency unless explicit cache invalidation is designed.
 ---
 
 # Caching
 
-Use this skill when endpoints need read-performance improvements and predictable cache behavior.
+## Execution Workflow
 
-## Workflow
+1. Select cache candidates (idempotent, deterministic read endpoints).
+2. Set route cache TTL and define key dimensions (tenant, locale, auth context) when needed.
+3. Identify invalidation triggers from write paths and data-refresh events.
+4. Validate cache correctness under concurrency and stale data windows.
 
-1. Identify idempotent read endpoints (`GET`) suitable for caching.
-2. Enable route-level caching with finite TTL.
-3. Add a stable cache-key strategy when request context affects output.
-4. Verify invalidation expectations against write endpoints.
+## Implementation Rules
 
-## Core Pattern
+- Cache only responses that are safe to replay.
+- Keep TTL explicit and document freshness expectations.
+- Avoid caching personalized/authenticated responses unless keys fully partition user context.
+- Treat cache entries as derived data, not source of truth.
+
+## Example Pattern
 
 ```python
 from litestar import get
@@ -24,14 +29,19 @@ async def list_articles() -> list[dict[str, str]]:
     return [{"title": "example"}]
 ```
 
-## Strategy Notes
+## Validation Checklist
 
-- Cache only safe, deterministic responses.
-- Include tenant/user/locale dimensions in key building when applicable.
-- Keep TTL short for frequently changing resources.
-- Do not cache authenticated responses unless keying is strict and intentional.
+- Confirm cache hits and misses behave as expected.
+- Confirm stale data windows are acceptable for product requirements.
+- Confirm writes invalidate or bypass stale entries correctly.
+- Confirm no cross-tenant or cross-user cache leakage.
+
+## Cross-Skill Handoffs
+
+- Use `stores` for backend/TTL policy details.
+- Use `responses` when response metadata affects caching behavior.
 
 ## Litestar References
 
 - https://docs.litestar.dev/latest/usage/caching.html
-- https://docs.litestar.dev/latest/usage/responses.html#response-caching
+- https://docs.litestar.dev/latest/usage/responses.html

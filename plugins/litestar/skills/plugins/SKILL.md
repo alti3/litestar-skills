@@ -1,37 +1,53 @@
 ---
 name: plugins
-description: Select and configure Litestar plugins, including SQLAlchemy, Piccolo, attrs, pydantic, dataclass, msgspec, and TypedDict integrations.
+description: Configure Litestar plugins for serialization/model integration (Pydantic, dataclass, msgspec, attrs, TypedDict) and persistence integrations (SQLAlchemy, Piccolo). Use when selecting or wiring plugin-based behavior at app boundaries. Do not use for unrelated framework configuration that does not involve plugin architecture.
 ---
 
 # Plugins
 
-Use this skill when choosing or wiring Litestar plugins.
+## Execution Workflow
 
-## Workflow
+1. Select plugins based on data model and persistence strategy.
+2. Register plugins at app creation with explicit configuration.
+3. Validate request parsing, response serialization, and DTO interplay.
+4. Add compatibility tests for plugin-specific edge cases.
 
-1. Select plugin(s) based on data modeling and persistence choices.
-2. Register plugins at app creation.
-3. Ensure serializer/DTO/request parsing behavior aligns.
-4. Add tests validating plugin-specific edge cases.
+## Implementation Rules
 
-## Coverage
+- Prefer the minimum plugin set that satisfies requirements.
+- Keep plugin behavior documented and version-aware.
+- Avoid mixing overlapping serializer ecosystems without clear rationale.
+- Validate plugin interaction with OpenAPI and DTO contracts.
 
-- Plugin system overview.
-- SQLAlchemy plugin.
-- Piccolo plugin.
-- attrs plugin.
-- pydantic plugin.
-- dataclass plugin.
-- msgspec plugin.
-- TypedDict plugin.
+## Example Pattern
+
+```python
+from litestar import Litestar
+
+app = Litestar(
+    route_handlers=[...],
+    plugins=[...],  # e.g., pydantic/msgspec/sqlalchemy plugin instance
+)
+```
+
+## Validation Checklist
+
+- Confirm plugin registration order and config are deterministic.
+- Confirm serialization/deserialization behavior matches expectations.
+- Confirm schema generation remains accurate across plugin-backed models.
+
+## Cross-Skill Handoffs
+
+- Use `databases` for ORM plugin deep dives.
+- Use `dto`, `requests`, and `responses` for transport contract shaping.
 
 ## Litestar References
 
 - https://docs.litestar.dev/latest/usage/plugins/index.html
 - https://docs.litestar.dev/latest/usage/plugins/sqlalchemy.html
 - https://docs.litestar.dev/latest/usage/plugins/piccolo.html
-- https://docs.litestar.dev/latest/usage/plugins/attrs.html
 - https://docs.litestar.dev/latest/usage/plugins/pydantic.html
 - https://docs.litestar.dev/latest/usage/plugins/dataclass.html
 - https://docs.litestar.dev/latest/usage/plugins/msgspec.html
+- https://docs.litestar.dev/latest/usage/plugins/attrs.html
 - https://docs.litestar.dev/latest/usage/plugins/typed-dict.html

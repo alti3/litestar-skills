@@ -1,32 +1,25 @@
 ---
 name: responses
-description: Build Litestar responses using typed return values, Response classes, response headers/cookies, and status-code specific behavior.
+description: Build Litestar responses with typed returns, response classes, headers/cookies, status control, custom response classes, and redirect/file/streaming patterns. Use when shaping outbound API behavior or correcting response contracts. Do not use for request parsing or authentication policy implementation.
 ---
 
 # Responses
 
-Use this skill for response shaping, status code control, and custom response behavior.
+## Execution Workflow
 
-## Workflow
+1. Start with typed return values for standard JSON responses.
+2. Use explicit response classes when controlling status, headers, media type, or cookies.
+3. Apply specialized responses (redirect, file, stream, template) when required.
+4. Keep success and error response envelopes consistent.
 
-1. Default to typed return values for standard JSON responses.
-2. Use `Response(...)` when headers/cookies/media/status must be controlled explicitly.
-3. Use response DTO/serialization controls where domain objects need transformation.
-4. Ensure error responses are consistent with exception handlers.
+## Implementation Rules
 
-## Core Patterns
+- Declare precise return types for schema accuracy.
+- Set explicit status codes for non-default behavior.
+- Keep header/cookie setting centralized and policy-compliant.
+- Align response behavior with exception-handling contracts.
 
-### Typed Return
-
-```python
-from litestar import get
-
-@get("/ping")
-async def ping() -> dict[str, str]:
-    return {"message": "pong"}
-```
-
-### Explicit Response
+## Example Pattern
 
 ```python
 from litestar import Response, get
@@ -36,14 +29,22 @@ async def created() -> Response[dict[str, str]]:
     return Response({"result": "ok"}, status_code=201)
 ```
 
-## Response Checklist
+## Validation Checklist
 
-- Use precise return types for better schema generation.
-- Set explicit status codes for non-default flows.
-- Keep response envelope conventions consistent across the API.
-- Coordinate response contracts with exception handling.
+- Confirm status codes, headers, and bodies match endpoint contract.
+- Confirm streaming and file responses are memory-safe and correctly typed.
+- Confirm redirects and custom response classes preserve OpenAPI intent.
+
+## Cross-Skill Handoffs
+
+- Use `exception-handling` for error envelope/mapping strategy.
+- Use `openapi` when response modeling changes schema behavior.
 
 ## Litestar References
 
 - https://docs.litestar.dev/latest/usage/responses.html
-- https://docs.litestar.dev/latest/usage/exceptions.html
+- https://docs.litestar.dev/latest/usage/responses.html#using-response-classes
+- https://docs.litestar.dev/latest/usage/responses.html#response-status-codes
+- https://docs.litestar.dev/latest/usage/responses.html#redirect-responses
+- https://docs.litestar.dev/latest/usage/responses.html#streaming-response
+- https://docs.litestar.dev/latest/usage/responses.html#file-responses

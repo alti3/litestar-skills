@@ -1,20 +1,26 @@
 ---
 name: authentication
-description: Implement authentication and authorization in Litestar using guards, session/JWT auth middleware, and route protection patterns.
+description: Implement Litestar authentication and authorization using custom authentication middleware, built-in security backends, guards, endpoint inclusion/exclusion rules, JWT backends, and secret handling. Use when securing routes, adding login/session/token flows, or enforcing permissions. Do not use for non-security request parsing or unrelated transport concerns.
 ---
 
 # Authentication
 
-Use this skill when securing endpoints, adding login/session flows, or enforcing permissions.
+## Execution Workflow
 
-## Workflow
+1. Choose an authentication strategy (session, JWT, or custom backend) based on client and trust boundaries.
+2. Implement backend or middleware and attach it once at application scope.
+3. Apply route protection with guards and explicit include/exclude endpoint rules.
+4. Normalize unauthorized (`401`) and forbidden (`403`) behavior across handlers.
+5. Handle secrets and key material with secure storage and rotation expectations.
 
-1. Choose an auth mechanism (session vs JWT/bearer) based on client architecture.
-2. Configure auth middleware/backend.
-3. Protect routes with guards and scope checks.
-4. Keep unauthenticated and forbidden behaviors explicit and consistent.
+## Implementation Rules
 
-## Guard Pattern
+- Keep authentication (identity) and authorization (permissions) separate.
+- Favor built-in security backends unless custom behavior is required.
+- Keep guard logic deterministic, side-effect free, and close to routes.
+- Never hardcode secrets; load from secure env/config sources.
+
+## Example Pattern
 
 ```python
 from litestar import get
@@ -26,22 +32,31 @@ def require_admin(connection: ASGIConnection, _: object) -> None:
     if not user or "admin" not in getattr(user, "roles", []):
         raise PermissionError("admin role required")
 
-
 @get("/admin", guards=[require_admin])
 async def admin_dashboard() -> dict[str, str]:
     return {"status": "ok"}
 ```
 
-## Security Checklist
+## Validation Checklist
 
-- Use HTTPS-only cookie flags and secure token handling.
-- Attach auth middleware once at app-level.
-- Place authorization close to routes (guards) for clarity.
-- Standardize 401 vs 403 responses.
+- Confirm protected endpoints reject missing/invalid credentials.
+- Confirm role/scope checks reject insufficient privileges.
+- Confirm excluded endpoints remain accessible when intended.
+- Confirm token/session expiration and revocation behaviors are tested.
+- Confirm logs and errors never leak raw secrets or full tokens.
+
+## Cross-Skill Handoffs
+
+- Use `requests` for input validation before auth logic executes.
+- Use `exception-handling` to standardize auth error contracts.
+- Use `testing` to harden auth boundary coverage.
 
 ## Litestar References
 
 - https://docs.litestar.dev/latest/usage/security/index.html
+- https://docs.litestar.dev/latest/usage/security/abstract-authentication-middleware.html
+- https://docs.litestar.dev/latest/usage/security/security-backends.html
 - https://docs.litestar.dev/latest/usage/security/guards.html
+- https://docs.litestar.dev/latest/usage/security/excluding-and-including-endpoints.html
 - https://docs.litestar.dev/latest/usage/security/jwt.html
-- https://docs.litestar.dev/latest/usage/security/session.html
+- https://docs.litestar.dev/latest/usage/security/secret-datastructures.html

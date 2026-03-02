@@ -1,36 +1,44 @@
 ---
 name: middleware
-description: Design and apply Litestar middleware for cross-cutting concerns such as CORS, compression, timing, request enrichment, and policy enforcement.
+description: Design and apply Litestar middleware for cross-cutting concerns such as CORS, compression, request enrichment, policy enforcement, and ASGI pipeline control. Use when behavior must wrap broad route sets consistently. Do not use for route-specific business rules that belong in handlers or services.
 ---
 
 # Middleware
 
-Use this skill for cross-cutting behavior that should apply across many routes.
+## Execution Workflow
 
-## Workflow
+1. Determine whether built-in middleware covers the requirement.
+2. Add middleware in explicit execution order at app initialization.
+3. Implement custom middleware only when behavior is truly cross-cutting.
+4. Validate middleware interaction with hooks, exception handlers, and auth.
 
-1. Decide whether built-in middleware is enough (CORS, compression, etc.).
-2. Add middleware at app level in execution order.
-3. Use custom middleware only for truly cross-cutting concerns.
-4. Keep middleware side effects observable (logging/metrics).
+## Implementation Rules
 
-## Custom Middleware Pattern
+- Keep middleware focused on one cross-cutting responsibility.
+- Avoid placing domain business logic in middleware.
+- Keep middleware non-blocking and side effects observable.
+- Document ordering assumptions when multiple middleware components interact.
+
+## Example Pattern
 
 ```python
 from litestar.middleware import AbstractMiddleware
-
 
 class RequestTimingMiddleware(AbstractMiddleware):
     async def __call__(self, scope, receive, send):
         return await self.app(scope, receive, send)
 ```
 
-## Checklist
+## Validation Checklist
 
-- Keep middleware focused and minimal.
-- Avoid business logic in middleware.
-- Be explicit about ordering when middleware interacts.
-- Validate behavior for both success and error paths.
+- Confirm middleware executes in the expected order.
+- Confirm behavior is correct for both success and failure paths.
+- Confirm headers/context mutations do not leak across requests.
+
+## Cross-Skill Handoffs
+
+- Use `lifecycle-hooks` for hook-stage logic rather than ASGI wrapping.
+- Use `authentication`, `logging`, and `metrics` for domain-specific middleware outcomes.
 
 ## Litestar References
 

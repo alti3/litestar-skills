@@ -1,24 +1,45 @@
 ---
 name: requests
-description: Handle Litestar request parsing and validation for path, query, header, cookie, and body data with explicit typing and safe defaults.
+description: Handle Litestar request parsing and validation for path/query/header/cookie/body/multipart inputs with explicit typing and deterministic client-error handling. Use when implementing or fixing inbound contract parsing. Do not use for response serialization concerns.
 ---
 
 # Requests
 
-Use this skill for inbound HTTP request parsing and validation.
+## Execution Workflow
 
-## Workflow
+1. Type route parameters and body models explicitly.
+2. Apply parameter constraints and aliases for query/header/cookie fields.
+3. Validate multipart and file upload paths with strict size/type policy.
+4. Keep transport validation separate from business-domain validation.
 
-1. Type all handler parameters explicitly.
-2. Use parameter helpers for headers/cookies/query aliases and constraints.
-3. Validate body payloads via DTO/dataclass/msgspec/pydantic models.
-4. Keep transport validation in handlers and business rules in services.
+## Implementation Rules
 
-## Checklist
+- Avoid untyped `dict` payloads when schema is known.
+- Prefer strict domain types (UUID, enums, datetime, constrained strings/ints).
+- Normalize malformed input behavior into stable `4xx` contracts.
+- Keep parsing rules close to route definitions for readability.
 
-- Avoid untyped `dict` request payloads when schema is known.
-- Use narrow types for booleans, enums, UUIDs, and datetimes.
-- Handle malformed input with deterministic 4xx responses.
+## Example Pattern
+
+```python
+from litestar import get
+from litestar.params import Parameter
+
+@get("/search")
+async def search(limit: int = Parameter(ge=1, le=100, query="limit")) -> dict[str, int]:
+    return {"limit": limit}
+```
+
+## Validation Checklist
+
+- Confirm coercion and validation rules match API docs.
+- Confirm malformed inputs fail with deterministic error payloads.
+- Confirm large payload and multipart handling does not exhaust memory.
+
+## Cross-Skill Handoffs
+
+- Use `dto` and `custom-types` for advanced input transformations.
+- Use `file-uploads` for deep multipart security handling.
 
 ## Litestar References
 

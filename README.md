@@ -34,7 +34,7 @@ Repository layout (Railway-style plugin structure):
 
 Compatibility discovery layout:
 
-- `.agents/skills/<skill-name> -> plugins/litestar/skills/<skill-name>` (symlinks)
+- `.agents/skills/<skill-name> -> plugins/litestar/skills/<skill-name>` (local symlinks, git-ignored)
 
 ## Skills
 
@@ -69,16 +69,20 @@ Compatibility discovery layout:
 - `testing`
 - `websockets`
 
-## Full page coverage map
+## Quality and Coverage
 
-- `plugins/litestar/USAGE_COVERAGE.md`
+- Litestar usage coverage map: `plugins/litestar/USAGE_COVERAGE.md`
+- Best-practices checklist: `BEST_PRACTICES_CHECKLIST.md`
+- Layout and metadata validation: `scripts/validate_skills_layout.sh`
 
-## Validation
+Run validation locally:
 
-- `scripts/validate_skills_layout.sh`
+```bash
+scripts/validate_skills_layout.sh
+```
 
 ## Source references
 
 - Litestar docs: https://docs.litestar.dev/latest/
-- Usage section: https://docs.litestar.dev/latest/usage/
-- Structure inspiration: https://github.com/railwayapp/railway-skills
+- Litestar usage section: https://docs.litestar.dev/latest/usage/index.html
+- OpenAI skills docs: https://developers.openai.com/codex/agents/skills

@@ -1,24 +1,48 @@
 ---
 name: websockets
-description: Build Litestar WebSocket endpoints with connection lifecycle control, message handling, authentication, and graceful disconnect behavior.
+description: Build Litestar WebSocket endpoints with typed message handling, authentication/authorization, connection lifecycle control, and graceful disconnect/reconnect behavior. Use when implementing bidirectional real-time communication. Do not use for one-way pub/sub patterns that are better handled by channels alone.
 ---
 
 # WebSockets
 
-Use this skill for bidirectional real-time endpoints.
+## Execution Workflow
 
-## Workflow
+1. Define WebSocket routes and message schemas.
+2. Authenticate connection establishment and authorize channel/topic access.
+3. Implement receive/send loops with explicit timeout, backpressure, and disconnect handling.
+4. Emit observability signals for active connections, failures, and throughput.
 
-1. Define WebSocket route handlers and typed message contracts.
-2. Authenticate/authorize connection establishment.
-3. Handle receive/send loop with explicit disconnect conditions.
-4. Capture metrics/logging for connection counts and failures.
+## Implementation Rules
 
-## Checklist
+- Validate incoming messages before domain processing.
+- Enforce message size/rate limits and idle timeouts.
+- Keep connection state minimal and externally recoverable.
+- Handle disconnect paths explicitly to avoid resource leaks.
 
-- Validate incoming messages before processing.
-- Enforce limits (size, rate, idle timeout).
-- Handle reconnect and stale-session behavior.
+## Example Pattern
+
+```python
+from litestar import websocket
+from litestar.connection import WebSocket
+
+@websocket("/ws")
+async def ws_handler(socket: WebSocket) -> None:
+    await socket.accept()
+    message = await socket.receive_text()
+    await socket.send_text(f"echo:{message}")
+```
+
+## Validation Checklist
+
+- Confirm handshake/auth failure behavior is deterministic.
+- Confirm invalid message payloads are rejected safely.
+- Confirm reconnection flows and stale-session cleanup work as intended.
+- Confirm graceful shutdown closes active sockets predictably.
+
+## Cross-Skill Handoffs
+
+- Use `channels` for backend event fanout pipelines.
+- Use `authentication`, `metrics`, and `logging` for secure observability-rich operation.
 
 ## Litestar References
 

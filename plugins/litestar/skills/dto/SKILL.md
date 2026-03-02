@@ -1,30 +1,52 @@
 ---
 name: dto
-description: Configure Litestar DTOs for input/output shaping, nested model controls, field exclusion, and transfer-object customization.
+description: Configure Litestar DTO behavior for read/write shaping, AbstractDTO policies, and custom DTO classes with predictable nested field handling. Use when API payload contracts differ from internal model structures. Do not use when internal models can be exposed safely without transformation.
 ---
 
 # DTO
 
-Use this skill when transport schemas must differ from internal models.
+## Execution Workflow
 
-## Workflow
+1. Start with basic DTO mapping for the target model.
+2. Add reusable policy via `AbstractDTO` when multiple handlers share shape rules.
+3. Implement custom DTO classes when default behavior cannot express required transformations.
+4. Validate nested include/exclude behavior and write/update flows.
 
-1. Start with basic DTO configuration for a model.
-2. Add abstract/custom DTO classes for reusable policies.
-3. Control nested inclusion/exclusion explicitly.
-4. Use DTOData patterns for safe write/update handling.
+## Implementation Rules
 
-## Coverage
+- Keep DTO rules explicit; avoid hidden transformation surprises.
+- Separate read DTO and write DTO policies when requirements differ.
+- Limit nested exposure depth intentionally for performance and data safety.
+- Keep DTO logic aligned with OpenAPI contract expectations.
 
-- Basic DTO use.
-- Abstract DTO extension patterns.
-- Nested exclude/include handling.
-- DTOData manipulation and validation flow.
+## Example Pattern
+
+```python
+from litestar import get
+from litestar.dto import DTOConfig, DataclassDTO
+
+class PublicUserDTO(DataclassDTO):
+    config = DTOConfig(exclude={"password_hash"})
+
+@get("/users/{user_id:int}", dto=PublicUserDTO)
+async def get_user(user_id: int) -> object:
+    return ...
+```
+
+## Validation Checklist
+
+- Confirm response payloads include and exclude the intended fields.
+- Confirm input DTO validation rejects forbidden or malformed fields.
+- Confirm update flows preserve invariant and read-only fields.
+
+## Cross-Skill Handoffs
+
+- Use `dataclasses`, `plugins`, or `custom-types` for model ecosystem specifics.
+- Use `openapi` to verify generated schema accuracy after DTO changes.
 
 ## Litestar References
 
 - https://docs.litestar.dev/latest/usage/dto/index.html
 - https://docs.litestar.dev/latest/usage/dto/0-basic-use.html
 - https://docs.litestar.dev/latest/usage/dto/1-abstract-dto.html
-- https://docs.litestar.dev/latest/usage/dto/2-nested-exclude.html
-- https://docs.litestar.dev/latest/usage/dto/3-dto-data.html
+- https://docs.litestar.dev/latest/usage/dto/2-creating-custom-dto-classes.html

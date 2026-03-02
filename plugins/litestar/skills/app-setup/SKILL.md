@@ -1,20 +1,26 @@
 ---
 name: app-setup
-description: Build and configure Litestar applications, including base app initialization, route registration, app-level config, and startup/shutdown hooks.
+description: Build and configure Litestar application entrypoints, global app configuration, layered route registration, lifespan wiring, and shared app state. Use when creating a new Litestar service, restructuring app initialization, or setting app-level defaults. Do not use for isolated handler logic that belongs in routing, requests, responses, or DTO-focused skills.
 ---
 
 # App Setup
 
-Use this skill when the user needs to create a new Litestar app, structure an existing app, or configure core application settings.
+## Execution Workflow
 
-## Workflow
+1. Define the app entrypoint (`app.py`, `main.py`, or factory) and keep it importable by the CLI.
+2. Register route handlers through routers/controllers instead of crowding the app module.
+3. Configure global concerns on `Litestar(...)` (logging, dependencies, middleware, OpenAPI, exception handlers).
+4. Choose startup/shutdown hooks or an async lifespan context manager for resource lifecycle.
+5. Store shared resources in app state only when they are truly application-scoped.
 
-1. Define a minimal `Litestar(...)` app and register route handlers.
-2. Move handlers into routers as complexity grows.
-3. Add app-level configuration (`debug`, `openapi_config`, `logging_config`, `dependencies`, `middleware`).
-4. Add lifespan hooks for startup/shutdown needs.
+## Implementation Rules
 
-## Minimal Pattern
+- Keep the app module focused on composition, not business logic.
+- Apply layered configuration intentionally: app-level defaults, then narrow overrides at router/controller/handler layers.
+- Prefer explicit `route_handlers=[...]` registration and avoid dynamic side effects during import.
+- Keep `debug=True` local-only and tie runtime behavior to environment settings.
+
+## Example Pattern
 
 ```python
 from litestar import Litestar, get
@@ -26,23 +32,22 @@ async def health() -> dict[str, str]:
 app = Litestar(route_handlers=[health])
 ```
 
-## Project Pattern
+## Validation Checklist
 
-- Create a dedicated `app.py` entrypoint exporting `app`.
-- Keep transport concerns (handlers/routers/controllers) separate from services.
-- Register routers/controllers via `route_handlers=[...]` on the app.
+- Confirm CLI autodiscovery works (`litestar run` resolves the correct app).
+- Confirm startup and shutdown hooks both run and release external resources.
+- Confirm global dependencies/middleware apply to intended routes only.
+- Confirm app-level configuration does not unintentionally override route-level settings.
 
-## App-Level Config Checklist
+## Cross-Skill Handoffs
 
-- `debug` for local development only.
-- `openapi_config` for API docs metadata.
-- `logging_config` for structured logging.
-- `dependencies` for cross-cutting service injection.
-- `middleware` for request/response policies.
-- lifespan hooks/events for startup resource initialization and cleanup.
+- Use `routing` for endpoint grouping and path design.
+- Use `events` and `lifecycle-hooks` for deeper lifecycle orchestration.
+- Use `logging`, `middleware`, and `openapi` for their domain-specific configuration depth.
 
 ## Litestar References
 
 - https://docs.litestar.dev/latest/usage/applications.html
 - https://docs.litestar.dev/latest/usage/routing/index.html
 - https://docs.litestar.dev/latest/usage/events.html
+- https://docs.litestar.dev/latest/usage/lifecycle-hooks.html
