@@ -1,3 +1,0 @@
-display_name: "Litestar Exception Handling"
-short_description: "Implement Litestar exception mapping with custom exception classes, scoped handlers, and stable API error contracts."
-default_prompt: "Use the exception-handling skill and follow its workflow for this Litestar task."

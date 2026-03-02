@@ -1,3 +1,0 @@
-display_name: "Litestar Contrib"
-short_description: "Integrate Litestar contrib modules (for example HTMX, Jinja, Mako, JWT, OpenTelemetry, Pydantic, SQLAlchemy, Piccolo) with explicit scope and compatibility checks."
-default_prompt: "Use the contrib skill and follow its workflow for this Litestar task."

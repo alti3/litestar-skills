@@ -1,3 +1,0 @@
-display_name: "Litestar Custom Types"
-short_description: "Add custom type decoding/encoding and schema compatibility in Litestar for domain-specific values that are not handled by default serializers."
-default_prompt: "Use the custom-types skill and follow its workflow for this Litestar task."

@@ -1,3 +1,0 @@
-display_name: "Litestar Logging"
-short_description: "Configure Litestar logging for structured output, environment-aware log levels, request correlation, and production-safe redaction."
-default_prompt: "Use the logging skill and follow its workflow for this Litestar task."

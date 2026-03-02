@@ -1,3 +1,0 @@
-display_name: "Litestar Metrics"
-short_description: "Add Litestar observability metrics via OpenTelemetry and Prometheus-compatible instrumentation, including request latency/error metrics and custom business counters."
-default_prompt: "Use the metrics skill and follow its workflow for this Litestar task."

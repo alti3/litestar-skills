@@ -1,0 +1,3 @@
+display_name: "Litestar Dto"
+short_description: "Configure Litestar DTO behavior for read/write shaping, AbstractDTO policies, and custom DTO classes with predictable nested field handling."
+default_prompt: "Use the litestar-dto skill and follow its workflow for this Litestar task."

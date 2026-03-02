@@ -9,36 +9,36 @@ Each skill folder contains:
 
 ## Skills
 
-- `app-setup`
-- `authentication`
-- `caching`
-- `channels`
-- `cli`
-- `contrib`
-- `custom-types`
-- `databases`
-- `dataclasses`
-- `debugging`
-- `dependency-injection`
-- `dto`
-- `events`
-- `exception-handling`
-- `file-uploads`
-- `htmx`
-- `lifecycle-hooks`
-- `logging`
-- `metrics`
-- `middleware`
-- `openapi`
-- `plugins`
-- `requests`
-- `responses`
-- `routing`
-- `static-files`
-- `stores`
-- `templating`
-- `testing`
-- `websockets`
+- `litestar-app-setup`
+- `litestar-authentication`
+- `litestar-caching`
+- `litestar-channels`
+- `litestar-cli`
+- `litestar-contrib`
+- `litestar-custom-types`
+- `litestar-databases`
+- `litestar-dataclasses`
+- `litestar-debugging`
+- `litestar-dependency-injection`
+- `litestar-dto`
+- `litestar-events`
+- `litestar-exception-handling`
+- `litestar-file-uploads`
+- `litestar-htmx`
+- `litestar-lifecycle-hooks`
+- `litestar-logging`
+- `litestar-metrics`
+- `litestar-middleware`
+- `litestar-openapi`
+- `litestar-plugins`
+- `litestar-requests`
+- `litestar-responses`
+- `litestar-routing`
+- `litestar-static-files`
+- `litestar-stores`
+- `litestar-templating`
+- `litestar-testing`
+- `litestar-websockets`
 
 ## Coverage matrix
 

@@ -1,3 +1,0 @@
-display_name: "Litestar Cli"
-short_description: "Use Litestar CLI for app autodiscovery, explicit app targeting, operational commands, schema generation workflows, and CLI extension points."
-default_prompt: "Use the cli skill and follow its workflow for this Litestar task."

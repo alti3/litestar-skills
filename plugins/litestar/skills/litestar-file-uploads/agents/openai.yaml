@@ -1,0 +1,3 @@
+display_name: "Litestar File Uploads"
+short_description: "Handle Litestar multipart file uploads securely with typed UploadFile inputs, validation, streaming, and storage pipeline integration."
+default_prompt: "Use the litestar-file-uploads skill and follow its workflow for this Litestar task."

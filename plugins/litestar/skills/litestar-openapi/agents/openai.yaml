@@ -1,0 +1,3 @@
+display_name: "Litestar Openapi"
+short_description: "Configure Litestar OpenAPI generation and documentation UX, including schema generation plugins, operation metadata, UI configuration, security docs, examples, and multiple schema outputs."
+default_prompt: "Use the litestar-openapi skill and follow its workflow for this Litestar task."

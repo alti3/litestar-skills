@@ -1,3 +1,0 @@
-display_name: "Litestar Dependency Injection"
-short_description: "Apply Litestar dependency injection with Provide, layered dependency scopes, overrides, and lifecycle-aware service wiring."
-default_prompt: "Use the dependency-injection skill and follow its workflow for this Litestar task."

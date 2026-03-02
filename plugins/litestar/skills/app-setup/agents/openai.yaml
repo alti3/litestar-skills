@@ -1,3 +1,0 @@
-display_name: "Litestar App Setup"
-short_description: "Build and configure Litestar application entrypoints, global app configuration, layered route registration, lifespan wiring, and shared app state."
-default_prompt: "Use the app-setup skill and follow its workflow for this Litestar task."

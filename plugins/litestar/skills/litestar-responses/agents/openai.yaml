@@ -1,0 +1,3 @@
+display_name: "Litestar Responses"
+short_description: "Build Litestar responses with typed returns, response classes, headers/cookies, status control, custom response classes, and redirect/file/streaming patterns."
+default_prompt: "Use the litestar-responses skill and follow its workflow for this Litestar task."

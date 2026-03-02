@@ -1,3 +1,0 @@
-display_name: "Litestar Static Files"
-short_description: "Serve static assets in Litestar with secure directory mounting, cache-control strategy, and production-ready delivery boundaries."
-default_prompt: "Use the static-files skill and follow its workflow for this Litestar task."

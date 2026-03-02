@@ -1,3 +1,0 @@
-display_name: "Litestar Events"
-short_description: "Use Litestar startup/shutdown event hooks and lifecycle orchestration to initialize shared resources and perform graceful cleanup."
-default_prompt: "Use the events skill and follow its workflow for this Litestar task."

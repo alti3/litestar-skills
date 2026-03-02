@@ -1,3 +1,0 @@
-display_name: "Litestar Testing"
-short_description: "Test Litestar applications with sync/async test clients, fixtures, dependency overrides, mocked dependencies, and deterministic assertions for success/failure contracts."
-default_prompt: "Use the testing skill and follow its workflow for this Litestar task."

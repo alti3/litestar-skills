@@ -1,0 +1,3 @@
+display_name: "Litestar Channels"
+short_description: "Implement Litestar channels for publish-subscribe event delivery, subscriber lifecycle, backend selection, and real-time fanout flows."
+default_prompt: "Use the litestar-channels skill and follow its workflow for this Litestar task."

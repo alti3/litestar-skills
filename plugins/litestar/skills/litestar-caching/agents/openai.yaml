@@ -1,0 +1,3 @@
+display_name: "Litestar Caching"
+short_description: "Configure Litestar response caching with route-level cache controls, key design, TTL strategy, and invalidation-aware behavior."
+default_prompt: "Use the litestar-caching skill and follow its workflow for this Litestar task."

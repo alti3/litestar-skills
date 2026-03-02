@@ -1,3 +1,0 @@
-display_name: "Litestar Databases"
-short_description: "Build Litestar database architecture with SQLAlchemy and Piccolo, including model/repository patterns, plugin setup, session lifecycle, and serialization boundaries."
-default_prompt: "Use the databases skill and follow its workflow for this Litestar task."

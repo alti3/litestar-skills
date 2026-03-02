@@ -21,12 +21,12 @@ npx skills@latest add https://github.com/alti3/litestar-skills
 Install a specific Litestar skill from this repository:
 
 ```bash
-bunx --bun skills@latest add https://github.com/alti3/litestar-skills --skill routing
+bunx --bun skills@latest add https://github.com/alti3/litestar-skills --skill litestar-routing
 # or
-npx skills@latest add https://github.com/alti3/litestar-skills --skill routing
+npx skills@latest add https://github.com/alti3/litestar-skills --skill litestar-routing
 ```
 
-After install, your agent can use skills by name (for example: `routing`, `dto`, `testing`).
+After install, your agent can use skills by name (for example: `litestar-routing`, `litestar-dto`, `litestar-testing`).
 
 Repository layout (Railway-style plugin structure):
 
@@ -38,36 +38,36 @@ Compatibility discovery layout:
 
 ## Skills
 
-- `app-setup`
-- `authentication`
-- `caching`
-- `channels`
-- `cli`
-- `contrib`
-- `custom-types`
-- `databases`
-- `dataclasses`
-- `debugging`
-- `dependency-injection`
-- `dto`
-- `events`
-- `exception-handling`
-- `file-uploads`
-- `htmx`
-- `lifecycle-hooks`
-- `logging`
-- `metrics`
-- `middleware`
-- `openapi`
-- `plugins`
-- `requests`
-- `responses`
-- `routing`
-- `static-files`
-- `stores`
-- `templating`
-- `testing`
-- `websockets`
+- `litestar-app-setup`
+- `litestar-authentication`
+- `litestar-caching`
+- `litestar-channels`
+- `litestar-cli`
+- `litestar-contrib`
+- `litestar-custom-types`
+- `litestar-databases`
+- `litestar-dataclasses`
+- `litestar-debugging`
+- `litestar-dependency-injection`
+- `litestar-dto`
+- `litestar-events`
+- `litestar-exception-handling`
+- `litestar-file-uploads`
+- `litestar-htmx`
+- `litestar-lifecycle-hooks`
+- `litestar-logging`
+- `litestar-metrics`
+- `litestar-middleware`
+- `litestar-openapi`
+- `litestar-plugins`
+- `litestar-requests`
+- `litestar-responses`
+- `litestar-routing`
+- `litestar-static-files`
+- `litestar-stores`
+- `litestar-templating`
+- `litestar-testing`
+- `litestar-websockets`
 
 ## Quality and Coverage
 

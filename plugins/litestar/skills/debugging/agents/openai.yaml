@@ -1,3 +1,0 @@
-display_name: "Litestar Debugging"
-short_description: "Debug Litestar services using reproducible failure isolation, environment-safe diagnostics, log/trace correlation, and targeted regression checks."
-default_prompt: "Use the debugging skill and follow its workflow for this Litestar task."

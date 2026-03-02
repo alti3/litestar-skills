@@ -1,3 +1,0 @@
-display_name: "Litestar Middleware"
-short_description: "Design and apply Litestar middleware for cross-cutting concerns such as CORS, compression, request enrichment, policy enforcement, and ASGI pipeline control."
-default_prompt: "Use the middleware skill and follow its workflow for this Litestar task."

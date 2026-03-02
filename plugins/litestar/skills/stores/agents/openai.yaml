@@ -1,3 +1,0 @@
-display_name: "Litestar Stores"
-short_description: "Configure Litestar stores for caching, sessions, and short-lived state with explicit backend selection, namespacing, TTL policy, and failure handling."
-default_prompt: "Use the stores skill and follow its workflow for this Litestar task."

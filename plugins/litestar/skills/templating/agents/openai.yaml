@@ -1,3 +1,0 @@
-display_name: "Litestar Templating"
-short_description: "Build Litestar template-rendered responses with configured template engines, clean context shaping, reusable partials, and server-rendered page patterns."
-default_prompt: "Use the templating skill and follow its workflow for this Litestar task."

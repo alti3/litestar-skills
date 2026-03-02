@@ -1,3 +1,0 @@
-display_name: "Litestar Dataclasses"
-short_description: "Use Python dataclasses as Litestar transport models with explicit typing, defaults, and DTO interplay."
-default_prompt: "Use the dataclasses skill and follow its workflow for this Litestar task."
