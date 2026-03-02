@@ -9,21 +9,21 @@ Install from GitHub with the `skills` CLI.
 ### Option A: `bunx --bun`
 
 ```bash
-bunx --bun skills@latest add https://github.com/taher/litestar-skills
+bunx --bun skills@latest add https://github.com/alti3/litestar-skills
 ```
 
 ### Option B: `npx`
 
 ```bash
-npx skills@latest add https://github.com/taher/litestar-skills
+npx skills@latest add https://github.com/alti3/litestar-skills
 ```
 
 Install a specific Litestar skill from this repository:
 
 ```bash
-bunx --bun skills@latest add https://github.com/taher/litestar-skills --skill routing
+bunx --bun skills@latest add https://github.com/alti3/litestar-skills --skill routing
 # or
-npx skills@latest add https://github.com/taher/litestar-skills --skill routing
+npx skills@latest add https://github.com/alti3/litestar-skills --skill routing
 ```
 
 After install, your agent can use skills by name (for example: `routing`, `dto`, `testing`).
