@@ -38,8 +38,8 @@ app = Litestar(
 
 ## Cross-Skill Handoffs
 
-- Use `databases` for ORM plugin deep dives.
-- Use `dto`, `requests`, and `responses` for transport contract shaping.
+- Use `litestar-databases` for ORM plugin deep dives.
+- Use `litestar-dto`, `litestar-requests`, and `litestar-responses` for transport contract shaping.
 
 ## Litestar References
 

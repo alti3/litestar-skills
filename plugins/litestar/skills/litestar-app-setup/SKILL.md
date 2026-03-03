@@ -41,9 +41,9 @@ app = Litestar(route_handlers=[health])
 
 ## Cross-Skill Handoffs
 
-- Use `routing` for endpoint grouping and path design.
-- Use `events` and `lifecycle-hooks` for deeper lifecycle orchestration.
-- Use `logging`, `middleware`, and `openapi` for their domain-specific configuration depth.
+- Use `litestar-routing` for endpoint grouping and path design.
+- Use `litestar-events` and `litestar-lifecycle-hooks` for deeper lifecycle orchestration.
+- Use `litestar-logging`, `litestar-middleware`, and `litestar-openapi` for their domain-specific configuration depth.
 
 ## Litestar References
 

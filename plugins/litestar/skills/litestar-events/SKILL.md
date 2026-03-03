@@ -45,8 +45,8 @@ app = Litestar(
 
 ## Cross-Skill Handoffs
 
-- Use `lifecycle-hooks` for request/response lifecycle instrumentation.
-- Use `app-setup` when refactoring overall startup composition.
+- Use `litestar-lifecycle-hooks` for request/response lifecycle instrumentation.
+- Use `litestar-app-setup` when refactoring overall startup composition.
 
 ## Litestar References
 

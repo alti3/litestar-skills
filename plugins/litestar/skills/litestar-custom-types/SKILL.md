@@ -44,8 +44,8 @@ app = Litestar(route_handlers=[echo_timestamp], type_decoders=[(datetime, parse_
 
 ## Cross-Skill Handoffs
 
-- Use `openapi` if schema customization is substantial.
-- Use `requests` and `responses` when custom types appear at API boundaries.
+- Use `litestar-openapi` if schema customization is substantial.
+- Use `litestar-requests` and `litestar-responses` when custom types appear at API boundaries.
 
 ## Litestar References
 

@@ -41,8 +41,8 @@ async def ws_handler(socket: WebSocket) -> None:
 
 ## Cross-Skill Handoffs
 
-- Use `channels` for backend event fanout pipelines.
-- Use `authentication`, `metrics`, and `logging` for secure observability-rich operation.
+- Use `litestar-channels` for backend event fanout pipelines.
+- Use `litestar-authentication`, `litestar-metrics`, and `litestar-logging` for secure observability-rich operation.
 
 ## Litestar References
 

@@ -38,8 +38,8 @@ async def list_articles() -> list[dict[str, str]]:
 
 ## Cross-Skill Handoffs
 
-- Use `stores` for backend/TTL policy details.
-- Use `responses` when response metadata affects caching behavior.
+- Use `litestar-stores` for backend/TTL policy details.
+- Use `litestar-responses` when response metadata affects caching behavior.
 
 ## Litestar References
 

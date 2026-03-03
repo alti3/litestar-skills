@@ -40,8 +40,8 @@ async def users_table(request: Request) -> object:
 
 ## Cross-Skill Handoffs
 
-- Use `templating` for template engine setup and shared layout strategy.
-- Use `responses` when headers/status codes drive HTMX client behavior.
+- Use `litestar-templating` for template engine setup and shared layout strategy.
+- Use `litestar-responses` when headers/status codes drive HTMX client behavior.
 
 ## Litestar References
 

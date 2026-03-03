@@ -37,8 +37,8 @@ litestar --app path.to.app:app run
 
 ## Cross-Skill Handoffs
 
-- Use `app-setup` when autodiscovery or app factory layout is broken.
-- Use `openapi` for schema generation quality, not just CLI invocation.
+- Use `litestar-app-setup` when autodiscovery or app factory layout is broken.
+- Use `litestar-openapi` for schema generation quality, not just CLI invocation.
 
 ## Litestar References
 

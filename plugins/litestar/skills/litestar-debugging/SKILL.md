@@ -39,8 +39,8 @@ app = Litestar(
 
 ## Cross-Skill Handoffs
 
-- Use `logging` and `metrics` for ongoing observability hardening.
-- Use `testing` to codify the bug as a regression test.
+- Use `litestar-logging` and `litestar-metrics` for ongoing observability hardening.
+- Use `litestar-testing` to codify the bug as a regression test.
 
 ## Litestar References
 

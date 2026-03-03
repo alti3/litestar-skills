@@ -39,8 +39,8 @@ app = Litestar(
 
 ## Cross-Skill Handoffs
 
-- Use `plugins` for plugin-system-focused integrations.
-- Use `metrics`, `authentication`, `databases`, or `templating` for topic depth after contrib setup.
+- Use `litestar-plugins` for plugin-system-focused integrations.
+- Use `litestar-metrics`, `litestar-authentication`, `litestar-databases`, or `litestar-templating` for topic depth after contrib setup.
 
 ## Litestar References
 

@@ -42,9 +42,9 @@ app = Litestar(route_handlers=[...], exception_handlers={DomainError: domain_err
 
 ## Cross-Skill Handoffs
 
-- Use `authentication` for auth-specific errors and challenge responses.
-- Use `responses` for shared response envelope conventions.
-- Use `testing` for exhaustive failure-path assertions.
+- Use `litestar-authentication` for auth-specific errors and challenge responses.
+- Use `litestar-responses` for shared response envelope conventions.
+- Use `litestar-testing` for exhaustive failure-path assertions.
 
 ## Litestar References
 

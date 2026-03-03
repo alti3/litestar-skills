@@ -39,8 +39,8 @@ user_router = Router(path="/users", route_handlers=[get_user])
 
 ## Cross-Skill Handoffs
 
-- Use `requests` and `responses` for transport contract depth.
-- Use `authentication` and `dependency-injection` for route-scoped security/services.
+- Use `litestar-requests` and `litestar-responses` for transport contract depth.
+- Use `litestar-authentication` and `litestar-dependency-injection` for route-scoped security/services.
 
 ## Litestar References
 

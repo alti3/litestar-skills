@@ -40,8 +40,8 @@ app = Litestar(
 
 ## Cross-Skill Handoffs
 
-- Use `events` for app startup/shutdown concerns.
-- Use `middleware` for ASGI-wide policies that should wrap the whole pipeline.
+- Use `litestar-events` for app startup/shutdown concerns.
+- Use `litestar-middleware` for ASGI-wide policies that should wrap the whole pipeline.
 
 ## Litestar References
 

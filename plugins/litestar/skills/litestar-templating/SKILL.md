@@ -37,8 +37,8 @@ async def dashboard() -> object:
 
 ## Cross-Skill Handoffs
 
-- Use `htmx` for partial-update interaction patterns.
-- Use `responses` when mixing HTML and non-HTML endpoint behavior.
+- Use `litestar-htmx` for partial-update interaction patterns.
+- Use `litestar-responses` when mixing HTML and non-HTML endpoint behavior.
 
 ## Litestar References
 

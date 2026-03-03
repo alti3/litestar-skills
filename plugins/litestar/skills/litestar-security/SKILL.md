@@ -93,10 +93,10 @@ jwt_secret = SecretString("super-secret")
 
 ## Cross-Skill Handoffs
 
-- Use `authentication` when the task is narrow and auth-only.
-- Use `exception-handling` to standardize `401/403` response contracts.
-- Use `testing` for auth boundary and regression tests.
-- Use `openapi` to publish security scheme docs for clients.
+- Use `litestar-authentication` when the task is narrow and auth-only.
+- Use `litestar-exception-handling` to standardize `401/403` response contracts.
+- Use `litestar-testing` for auth boundary and regression tests.
+- Use `litestar-openapi` to publish security scheme docs for clients.
 
 ## Litestar References
 

@@ -37,8 +37,8 @@ class RequestTimingMiddleware(AbstractMiddleware):
 
 ## Cross-Skill Handoffs
 
-- Use `lifecycle-hooks` for hook-stage logic rather than ASGI wrapping.
-- Use `authentication`, `logging`, and `metrics` for domain-specific middleware outcomes.
+- Use `litestar-lifecycle-hooks` for hook-stage logic rather than ASGI wrapping.
+- Use `litestar-authentication`, `litestar-logging`, and `litestar-metrics` for domain-specific middleware outcomes.
 
 ## Litestar References
 

@@ -37,8 +37,8 @@ async def created() -> Response[dict[str, str]]:
 
 ## Cross-Skill Handoffs
 
-- Use `exception-handling` for error envelope/mapping strategy.
-- Use `openapi` when response modeling changes schema behavior.
+- Use `litestar-exception-handling` for error envelope/mapping strategy.
+- Use `litestar-openapi` when response modeling changes schema behavior.
 
 ## Litestar References
 

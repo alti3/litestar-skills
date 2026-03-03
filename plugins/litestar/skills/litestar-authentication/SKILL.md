@@ -47,9 +47,9 @@ async def admin_dashboard() -> dict[str, str]:
 
 ## Cross-Skill Handoffs
 
-- Use `requests` for input validation before auth logic executes.
-- Use `exception-handling` to standardize auth error contracts.
-- Use `testing` to harden auth boundary coverage.
+- Use `litestar-requests` for input validation before auth logic executes.
+- Use `litestar-exception-handling` to standardize auth error contracts.
+- Use `litestar-testing` to harden auth boundary coverage.
 
 ## Litestar References
 

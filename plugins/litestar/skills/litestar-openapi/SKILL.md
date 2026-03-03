@@ -41,8 +41,8 @@ app = Litestar(
 
 ## Cross-Skill Handoffs
 
-- Use `responses`, `requests`, and `dto` when contract mismatches originate in transport modeling.
-- Use `authentication` when security scheme docs must reflect auth backends.
+- Use `litestar-responses`, `litestar-requests`, and `litestar-dto` when contract mismatches originate in transport modeling.
+- Use `litestar-authentication` when security scheme docs must reflect auth backends.
 
 ## Litestar References
 

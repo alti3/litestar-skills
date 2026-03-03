@@ -47,8 +47,8 @@ app = Litestar(
 
 ## Cross-Skill Handoffs
 
-- Use `databases` for session/unit-of-work provisioning.
-- Use `testing` for dependency override patterns.
+- Use `litestar-databases` for session/unit-of-work provisioning.
+- Use `litestar-testing` for dependency override patterns.
 
 ## Litestar References
 

@@ -39,9 +39,9 @@ app = Litestar(route_handlers=[...], plugins=[sqlalchemy_plugin])
 
 ## Cross-Skill Handoffs
 
-- Use `dependency-injection` for session provisioning patterns.
-- Use `dto` and `responses` for safe transport shaping.
-- Use `testing` for transactional test isolation.
+- Use `litestar-dependency-injection` for session provisioning patterns.
+- Use `litestar-dto` and `litestar-responses` for safe transport shaping.
+- Use `litestar-testing` for transactional test isolation.
 
 ## Litestar References
 

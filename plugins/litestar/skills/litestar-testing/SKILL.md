@@ -40,8 +40,8 @@ def test_health(app) -> None:
 
 ## Cross-Skill Handoffs
 
-- Use `dependency-injection` to design override-friendly services.
-- Use `exception-handling`, `authentication`, and `responses` for domain-specific assertion depth.
+- Use `litestar-dependency-injection` to design override-friendly services.
+- Use `litestar-exception-handling`, `litestar-authentication`, and `litestar-responses` for domain-specific assertion depth.
 
 ## Litestar References
 

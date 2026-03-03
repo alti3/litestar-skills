@@ -43,8 +43,8 @@ async def create_user(data: CreateUser) -> dict[str, str]:
 
 ## Cross-Skill Handoffs
 
-- Use `dto` for advanced shaping and nested field policy.
-- Use `plugins` when switching to different model ecosystems.
+- Use `litestar-dto` for advanced shaping and nested field policy.
+- Use `litestar-plugins` when switching to different model ecosystems.
 
 ## Litestar References
 

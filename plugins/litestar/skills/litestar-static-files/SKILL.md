@@ -39,8 +39,8 @@ app = Litestar(
 
 ## Cross-Skill Handoffs
 
-- Use `responses` for advanced file response behavior.
-- Use `file-uploads` for intake/storage validation before publication.
+- Use `litestar-responses` for advanced file response behavior.
+- Use `litestar-file-uploads` for intake/storage validation before publication.
 
 ## Litestar References
 

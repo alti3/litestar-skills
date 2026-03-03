@@ -38,8 +38,8 @@ async def search(limit: int = Parameter(ge=1, le=100, query="limit")) -> dict[st
 
 ## Cross-Skill Handoffs
 
-- Use `dto` and `custom-types` for advanced input transformations.
-- Use `file-uploads` for deep multipart security handling.
+- Use `litestar-dto` and `litestar-custom-types` for advanced input transformations.
+- Use `litestar-file-uploads` for deep multipart security handling.
 
 ## Litestar References
 

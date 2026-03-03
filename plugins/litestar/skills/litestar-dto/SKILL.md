@@ -41,8 +41,8 @@ async def get_user(user_id: int) -> object:
 
 ## Cross-Skill Handoffs
 
-- Use `dataclasses`, `plugins`, or `custom-types` for model ecosystem specifics.
-- Use `openapi` to verify generated schema accuracy after DTO changes.
+- Use `litestar-dataclasses`, `litestar-plugins`, or `litestar-custom-types` for model ecosystem specifics.
+- Use `litestar-openapi` to verify generated schema accuracy after DTO changes.
 
 ## Litestar References
 

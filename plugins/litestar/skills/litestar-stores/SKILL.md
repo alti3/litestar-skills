@@ -35,8 +35,8 @@ await store.set(session_key, value={"uid": user_id}, expires_in=1800)
 
 ## Cross-Skill Handoffs
 
-- Use `caching` for response-level caching strategy.
-- Use `authentication` when session/security data is store-backed.
+- Use `litestar-caching` for response-level caching strategy.
+- Use `litestar-authentication` when session/security data is store-backed.
 
 ## Litestar References
 

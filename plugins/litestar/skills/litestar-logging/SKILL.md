@@ -40,8 +40,8 @@ app = Litestar(
 
 ## Cross-Skill Handoffs
 
-- Use `metrics` for quantitative SLO monitoring.
-- Use `debugging` for incident-driven troubleshooting workflows.
+- Use `litestar-metrics` for quantitative SLO monitoring.
+- Use `litestar-debugging` for incident-driven troubleshooting workflows.
 
 ## Litestar References
 

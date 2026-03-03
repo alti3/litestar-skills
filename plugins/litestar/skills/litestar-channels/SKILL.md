@@ -37,8 +37,8 @@ async def publish_user_created(channels: object, user_id: str) -> None:
 
 ## Cross-Skill Handoffs
 
-- Use `websockets` for client-facing bidirectional sessions.
-- Use `metrics` and `logging` for observability on fanout throughput and errors.
+- Use `litestar-websockets` for client-facing bidirectional sessions.
+- Use `litestar-metrics` and `litestar-logging` for observability on fanout throughput and errors.
 
 ## Litestar References
 

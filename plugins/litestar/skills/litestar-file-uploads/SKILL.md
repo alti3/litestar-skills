@@ -40,8 +40,8 @@ async def upload(file: UploadFile) -> dict[str, str]:
 
 ## Cross-Skill Handoffs
 
-- Use `requests` for broader body parsing and validation strategies.
-- Use `static-files` and `responses` for download/serving concerns after upload.
+- Use `litestar-requests` for broader body parsing and validation strategies.
+- Use `litestar-static-files` and `litestar-responses` for download/serving concerns after upload.
 
 ## Litestar References
 

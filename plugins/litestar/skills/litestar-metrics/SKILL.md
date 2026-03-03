@@ -40,8 +40,8 @@ async def checkout() -> dict[str, str]:
 
 ## Cross-Skill Handoffs
 
-- Use `logging` for event-level diagnostics.
-- Use `debugging` and `testing` to validate instrumentation assumptions.
+- Use `litestar-logging` for event-level diagnostics.
+- Use `litestar-debugging` and `litestar-testing` to validate instrumentation assumptions.
 
 ## Litestar References
 
