@@ -62,6 +62,7 @@ Compatibility discovery layout:
 - `litestar-plugins`
 - `litestar-requests`
 - `litestar-responses`
+- `litestar-security`
 - `litestar-routing`
 - `litestar-static-files`
 - `litestar-stores`

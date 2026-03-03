@@ -3,7 +3,7 @@
 This file maps current Litestar usage documentation pages to repository skills.
 
 - Source index reviewed: https://docs.litestar.dev/latest/usage/index.html
-- Last reviewed: 2026-03-02
+- Last reviewed: 2026-03-03
 
 ## Coverage
 
@@ -66,13 +66,13 @@ This file maps current Litestar usage documentation pages to repository skills.
 | /latest/usage/plugins/attrs.html | plugins |
 | /latest/usage/plugins/typed-dict.html | plugins |
 | /latest/usage/responses.html | responses |
-| /latest/usage/security/index.html | authentication |
-| /latest/usage/security/abstract-authentication-middleware.html | authentication |
-| /latest/usage/security/security-backends.html | authentication |
-| /latest/usage/security/guards.html | authentication |
-| /latest/usage/security/excluding-and-including-endpoints.html | authentication |
-| /latest/usage/security/jwt.html | authentication |
-| /latest/usage/security/secret-datastructures.html | authentication |
+| /latest/usage/security/index.html | security |
+| /latest/usage/security/abstract-authentication-middleware.html | security |
+| /latest/usage/security/security-backends.html | security |
+| /latest/usage/security/guards.html | security |
+| /latest/usage/security/excluding-and-including-endpoints.html | security |
+| /latest/usage/security/jwt.html | security |
+| /latest/usage/security/secret-datastructures.html | security |
 | /latest/usage/static-files.html | static-files |
 | /latest/usage/stores.html | stores |
 | /latest/usage/templating.html | templating |

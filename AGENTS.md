@@ -26,6 +26,7 @@ A skill is a set of local instructions to follow that is stored in a `SKILL.md` 
 - litestar-plugins: Configure Litestar plugin integrations. (file: plugins/litestar/skills/litestar-plugins/SKILL.md)
 - litestar-requests: Handle Litestar request parsing and validation. (file: plugins/litestar/skills/litestar-requests/SKILL.md)
 - litestar-responses: Build Litestar responses and status behavior. (file: plugins/litestar/skills/litestar-responses/SKILL.md)
+- litestar-security: Build secure Litestar APIs with middleware, backends, guards, JWT, and secret handling. (file: plugins/litestar/skills/litestar-security/SKILL.md)
 - litestar-routing: Implement Litestar routing, controllers, and parameters. (file: plugins/litestar/skills/litestar-routing/SKILL.md)
 - litestar-static-files: Serve static assets in Litestar. (file: plugins/litestar/skills/litestar-static-files/SKILL.md)
 - litestar-stores: Configure Litestar stores and key/TTL strategy. (file: plugins/litestar/skills/litestar-stores/SKILL.md)
