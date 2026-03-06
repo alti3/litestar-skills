@@ -1,3 +1,3 @@
 display_name: "Litestar Websockets"
-short_description: "Build Litestar WebSocket endpoints with typed message handling, authentication/authorization, connection lifecycle control, and graceful disconnect/reconnect behavior."
+short_description: "Build Litestar websocket handlers, listeners, and streams with DI, transport-mode control, and clean disconnect handling."
 default_prompt: "Use the litestar-websockets skill and follow its workflow for this Litestar task."
