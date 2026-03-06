@@ -48,5 +48,4 @@ async def create_user(data: CreateUser) -> dict[str, str]:
 
 ## Litestar References
 
-- https://docs.litestar.dev/latest/usage/dataclasses.html
 - https://docs.litestar.dev/latest/usage/dto/index.html
