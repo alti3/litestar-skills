@@ -243,6 +243,18 @@ app = Litestar(
 
 This keeps domain code free of HTTP imports while still yielding deterministic API behavior.
 
+
+## OpenAPI Alignment
+
+Exception handling and OpenAPI documentation should stay in sync.
+
+Guidance:
+
+- If a route documents security requirements, its likely `401` and `403` outcomes should not surprise API consumers.
+- When an exception handler changes the media type or envelope shape, verify the route's documented responses and examples.
+- Use route-level `raises` or documented responses through `litestar-openapi` only when they reflect real runtime behavior.
+- Keep app-level fallback handlers and route-specific documented errors aligned.
+
 ## Choosing One Handler vs Many
 
 The usage docs note that one switching handler or many specialized handlers can both be valid.

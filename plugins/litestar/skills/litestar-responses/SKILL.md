@@ -11,13 +11,14 @@ description: Build Litestar responses with typed return values, explicit Respons
 2. Set status code, media type, headers, and cookies explicitly when defaults are not enough.
 3. Choose specialized response types for redirects, files, streams, SSE, templates, or third-party ASGI responses.
 4. Apply response-class layering only when serialization or envelope behavior should be shared across many handlers.
-5. Verify OpenAPI accuracy for typed responses, documentation-only headers/cookies, and empty-body statuses.
+5. Verify OpenAPI accuracy for typed responses, documentation-only headers/cookies, empty-body statuses, and specialized response containers.
 
 ## Core Rules
 
 - Prefer plain typed returns for standard JSON responses.
 - Use `Response[T]` when you need runtime control over headers, cookies, background tasks, or status code.
 - Keep generic arguments on response classes precise so schema generation stays accurate.
+- Document runtime headers and cookies when clients depend on them, especially if values are set dynamically.
 - Treat `204`, `304`, and other no-body responses as `None`-returning contracts.
 - Keep success envelopes consistent with exception-handling envelopes where the API uses a shared contract.
 - Use specialized response containers instead of reimplementing file, redirect, stream, or SSE behavior manually.
@@ -65,6 +66,7 @@ Read only the sections you need:
 - Confirm stream, SSE, redirect, and file responses have the intended media type and transport behavior.
 - Confirm background tasks run only after the response body has been sent.
 - Confirm OpenAPI output remains accurate after custom response-class or container changes.
+- Confirm response documentation stays aligned with `litestar-openapi` metadata and examples.
 
 ## Cross-Skill Handoffs
 

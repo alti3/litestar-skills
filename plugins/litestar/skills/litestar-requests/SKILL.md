@@ -1,47 +1,80 @@
 ---
 name: litestar-requests
-description: Handle Litestar request parsing and validation for path/query/header/cookie/body/multipart inputs with explicit typing and deterministic client-error handling. Use when implementing or fixing inbound contract parsing. Do not use for response serialization concerns.
+description: Handle Litestar request parsing and access for path, query, header, cookie, JSON body, form, multipart, and raw request inputs with explicit typing, `Parameter`, `Body`, `Request`, and upload handling. Use when implementing or fixing inbound HTTP contracts, request metadata access, or transport-side validation in Litestar. Do not use for response serialization, exception mapping, or broker-style messaging concerns.
 ---
 
 # Requests
 
 ## Execution Workflow
 
-1. Type route parameters and body models explicitly.
-2. Apply parameter constraints and aliases for query/header/cookie fields.
-3. Validate multipart and file upload paths with strict size/type policy.
-4. Keep transport validation separate from business-domain validation.
+1. Choose the narrowest input mechanism that matches the contract: typed parameters, structured body data, or raw `Request` access.
+2. Type every path, query, header, and cookie input explicitly.
+3. Use `Parameter(...)` and `Body(...)` metadata when aliases, constraints, content type, or documentation need to be explicit.
+4. Reach for `Request` only when you need raw body access, connection metadata, auth context, or request-scoped state.
+5. Handle forms, multipart, and uploads with explicit media type and size/security expectations.
+6. Keep transport validation separate from business-domain validation.
 
-## Implementation Rules
+## Core Rules
 
-- Avoid untyped `dict` payloads when schema is known.
-- Prefer strict domain types (UUID, enums, datetime, constrained strings/ints).
-- Normalize malformed input behavior into stable `4xx` contracts.
-- Keep parsing rules close to route definitions for readability.
+- Prefer typed handler parameters over manual parsing from `request`.
+- Prefer structured body models over untyped `dict[str, object]` payloads when the schema is known.
+- Keep aliases and constraints close to the parameter definition with `Parameter(...)` or `Body(...)`.
+- Use precise domain types such as `UUID`, enums, dataclasses, and validated models where possible.
+- Use raw `Request` access only when the handler genuinely needs request metadata or raw-body methods.
+- Treat multipart and file uploads as explicit transport choices with bounded resource usage.
+- Keep malformed-input behavior deterministic and consistent with the exception-handling strategy.
 
-## Example Pattern
+## Decision Guide
 
-```python
-from litestar import get
-from litestar.params import Parameter
+- Use normal function parameters for path, query, header, and cookie data.
+- Use `Parameter(...)` when aliasing, validation constraints, or source selection must be explicit.
+- Use a structured `data` parameter for JSON or other modeled body content.
+- Use `Body(...)` when body metadata or request encoding must be declared explicitly.
+- Use `Request` when you need `headers`, `cookies`, `query_params`, `url`, `client`, `user`, `auth`, `state`, or raw body methods.
+- Use multipart plus `UploadFile` only when the endpoint actually needs file transport.
 
-@get("/search")
-async def search(limit: int = Parameter(ge=1, le=100, query="limit")) -> dict[str, int]:
-    return {"limit": limit}
-```
+## Reference Files
+
+Read only the sections you need:
+
+- For path, query, header, cookie, and structured body patterns, read [references/parameter-and-body-patterns.md](references/parameter-and-body-patterns.md).
+- For raw `Request` access, request metadata, raw-body methods, forms, multipart, and uploads, read [references/request-object-and-upload-patterns.md](references/request-object-and-upload-patterns.md).
+
+## Recommended Defaults
+
+- Use explicit aliases only when the wire contract requires them.
+- Prefer keyword arguments and readable parameter names over transport-parsing logic in the handler body.
+- Keep request metadata access minimal and intentional.
+- Validate file size and content expectations before reading large uploads fully into memory.
+- Keep request parsing behavior aligned with documented OpenAPI contracts.
+
+## Anti-Patterns
+
+- Parsing every input manually from `request` when typed parameters already express the contract.
+- Accepting opaque untyped payloads when the body schema is known.
+- Mixing unrelated query, header, and cookie parsing logic deep inside the handler body.
+- Reading large uploads eagerly without a size or processing plan.
+- Hiding transport aliases or validation rules away from the route signature.
+- Letting request parsing decisions leak into response-shaping concerns.
 
 ## Validation Checklist
 
-- Confirm coercion and validation rules match API docs.
-- Confirm malformed inputs fail with deterministic error payloads.
-- Confirm large payload and multipart handling does not exhaust memory.
+- Confirm every client-supplied input has an explicit source and type.
+- Confirm aliases, defaults, and constraints match the public API contract.
+- Confirm body parsing uses the intended media type and payload model.
+- Confirm raw `Request` access is only used where the typed API is insufficient.
+- Confirm multipart and file handling cannot exhaust memory unintentionally.
+- Confirm malformed input produces the expected validation or client-error behavior.
+- Confirm auth, user, and state access from `Request` are used intentionally, not as hidden globals.
 
 ## Cross-Skill Handoffs
 
-- Use `litestar-dto` and `litestar-custom-types` for advanced input transformations.
-- Use `litestar-file-uploads` for deep multipart security handling.
+- Use `litestar-responses` for outbound contract design.
+- Use `litestar-exception-handling` for validation and client-error response strategy.
+- Use `litestar-dto` and `litestar-custom-types` for advanced transformation or custom parsing.
+- Use `litestar-file-uploads` for deeper upload security and storage workflows.
 
 ## Litestar References
 
-- https://docs.litestar.dev/latest/usage/requests.html
-- https://docs.litestar.dev/latest/usage/routing/parameters.html
+- https://docs.litestar.dev/2/usage/requests.html
+- https://docs.litestar.dev/2/usage/routing/parameters.html

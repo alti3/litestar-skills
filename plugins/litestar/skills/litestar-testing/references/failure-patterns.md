@@ -4,6 +4,9 @@
 
 - Mocked dependencies with `create_test_client`
 - Exception contract assertions
+- Event emission and listener side effects
+- Listener failure isolation
+- Schema and docs regression tests
 - Testing app-level `404` and `405`
 - Testing dependency override precedence
 - Testing validation failures
@@ -88,6 +91,127 @@ Guidance:
 
 - Assert headers too when the exception contract sets them.
 - Keep client-visible payload assertions separate from internal logging assertions.
+
+## Event Emission And Listener Side Effects
+
+When a handler emits Litestar events, test both the initiating response contract and the expected side effect.
+
+```python
+from litestar import Litestar, Request, post
+from litestar.events import listener
+from litestar.testing import TestClient
+
+
+SIDE_EFFECTS: list[str] = []
+
+
+@listener("user_created")
+async def send_welcome_email_handler(email: str) -> None:
+    SIDE_EFFECTS.append(email)
+
+
+@post("/users", status_code=201)
+async def create_user(request: Request) -> dict[str, str]:
+    request.app.emit("user_created", email="ada@example.com")
+    return {"status": "queued"}
+
+
+app = Litestar(route_handlers=[create_user], listeners=[send_welcome_email_handler])
+
+
+def test_event_side_effect() -> None:
+    SIDE_EFFECTS.clear()
+    with TestClient(app=app) as client:
+        response = client.post("/users")
+        assert response.status_code == 201
+        assert response.json() == {"status": "queued"}
+    assert SIDE_EFFECTS == ["ada@example.com"]
+```
+
+Guidance:
+
+- Assert the HTTP contract and the event-driven side effect separately.
+- Reset shared side-effect collectors between tests.
+
+## Listener Failure Isolation
+
+Litestar's event system is designed so one listener failure should not cancel unfinished sibling listeners. Test that explicitly when multiple listeners matter.
+
+```python
+from litestar import Litestar, Request, post
+from litestar.events import listener
+from litestar.testing import TestClient
+
+
+SIDE_EFFECTS: list[str] = []
+
+
+@listener("user_created")
+async def failing_listener(email: str) -> None:
+    raise RuntimeError(f"failed for {email}")
+
+
+@listener("user_created")
+async def successful_listener(email: str) -> None:
+    SIDE_EFFECTS.append(email)
+
+
+@post("/users", status_code=201)
+async def create_user(request: Request) -> dict[str, str]:
+    request.app.emit("user_created", email="ada@example.com")
+    return {"status": "queued"}
+
+
+app = Litestar(
+    route_handlers=[create_user],
+    listeners=[failing_listener, successful_listener],
+)
+
+
+def test_listener_failure_does_not_cancel_siblings() -> None:
+    SIDE_EFFECTS.clear()
+    with TestClient(app=app) as client:
+        response = client.post("/users")
+        assert response.status_code == 201
+    assert SIDE_EFFECTS == ["ada@example.com"]
+```
+
+
+## Schema And Docs Regression Tests
+
+When response or error contracts change, lock down the generated schema shape in tests so docs drift is caught early.
+
+```python
+from litestar import Litestar, Response, get
+from litestar.exceptions import ValidationException
+from litestar.openapi.config import OpenAPIConfig
+from litestar.testing import TestClient
+
+
+@get("/created")
+def created() -> Response[dict[str, str]]:
+    return Response({"result": "ok"}, status_code=201)
+
+
+app = Litestar(
+    route_handlers=[created],
+    openapi_config=OpenAPIConfig(title="Example", version="1.0.0"),
+)
+
+
+def test_openapi_response_contract() -> None:
+    with TestClient(app=app) as client:
+        schema = client.get("/schema/openapi.json").json()
+        operation = schema["paths"]["/created"]["get"]
+        assert "201" in operation["responses"]
+        assert operation["responses"]["201"]["description"]
+```
+
+Guidance:
+
+- Assert only the schema fragments that represent the contract you care about.
+- Add matching tests for documented error responses when exception handling changes the public API.
+- Use this pattern when docs accuracy matters as much as runtime behavior.
 
 ## Testing App-Level `404` and `405`
 

@@ -1,6 +1,13 @@
 # Litestar Security Patterns (Comprehensive)
 
-Use this playbook when implementing or reviewing end-to-end security in Litestar 2 APIs.
+Use this playbook when implementing or reviewing end-to-end security in Litestar APIs.
+
+Request-boundary rule:
+
+- Use `litestar-requests` for parsing headers, cookies, body fields, and upload transport.
+- Use authentication backends or middleware to establish `request.user` and `request.auth`.
+- Use guards to authorize based on that authenticated context.
+- Use exception handling to keep `401` and `403` contracts stable.
 
 ## Table of Contents
 

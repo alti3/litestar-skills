@@ -1,6 +1,6 @@
 ---
 name: litestar-lifecycle-hooks
-description: Implement Litestar lifecycle hooks for request/response interception, cross-cutting policies, and lightweight instrumentation around handler execution. Use when logic must run before or after handler processing. Do not use for global resource bootstrapping that belongs to startup/shutdown events.
+description: Implement Litestar lifecycle hooks for request/response interception, cross-cutting policies, and lightweight instrumentation around handler execution. Use when logic must run before or after handler processing. Do not use for global resource bootstrapping that belongs to startup/shutdown events or for the in-process event bus handled by `litestar-events`.
 ---
 
 # Lifecycle Hooks
@@ -18,6 +18,7 @@ description: Implement Litestar lifecycle hooks for request/response interceptio
 - Avoid embedding domain business rules in hooks.
 - Make ordering dependencies explicit when multiple hooks interact.
 - Ensure hook errors are handled without masking root cause.
+- Do not substitute hooks for event emission when multiple decoupled side effects should react to one domain action.
 
 ## Example Pattern
 
@@ -40,7 +41,8 @@ app = Litestar(
 
 ## Cross-Skill Handoffs
 
-- Use `litestar-events` for app startup/shutdown concerns.
+- Use `litestar-app-setup` for startup/shutdown hooks, lifespan, and application resource ownership.
+- Use `litestar-events` for decoupled in-process side effects with listeners and `app.emit(...)`.
 - Use `litestar-middleware` for ASGI-wide policies that should wrap the whole pipeline.
 
 ## Litestar References

@@ -1,109 +1,66 @@
 ---
 name: litestar-security
-description: Build secure Litestar APIs using authentication middleware, built-in security backends, guards, endpoint inclusion/exclusion controls, JWT validation, and secret-safe data handling. Use when implementing or auditing end-to-end API security controls. Do not use for non-security business logic, generic request parsing, or unrelated transport concerns.
+description: Build secure Litestar APIs using authentication middleware, built-in security backends, guards, endpoint inclusion and exclusion controls, JWT validation, request-boundary discipline, and secret-safe data handling. Use when implementing or auditing end-to-end API security controls in Litestar. Do not use for generic request parsing, unrelated business logic, or non-security transport concerns.
 ---
 
 # Security
 
-Use this skill when a Litestar service needs practical, defense-in-depth security implementation, not only authentication wiring.
+Use this skill when a Litestar service needs defense-in-depth security implementation, not only authentication wiring.
 
 For full implementation patterns, open [references/security-patterns.md](references/security-patterns.md).
 
 ## Execution Workflow
 
-1. Define security boundaries first: public endpoints, authenticated endpoints, and privileged endpoints.
-2. Pick the auth mechanism (session, JWT header, JWT cookie, or custom middleware) based on client type and trust assumptions.
-3. Apply auth once at app scope, then protect routes with guards for authorization checks.
-4. Explicitly configure endpoint inclusion/exclusion (`exclude`, `exclude_opt_key`, `opt`) to prevent accidental exposure.
-5. Centralize 401/403 behavior and make security failures predictable for clients.
-6. Store secrets using `SecretString` / `SecretBytes`, never plain strings in logs or repr output.
-7. Validate with boundary tests: missing credentials, invalid credentials, expired/revoked tokens, and insufficient scopes/roles.
+1. Define public, authenticated, and privileged route classes first.
+2. Choose the authentication mechanism and attach it once at app scope.
+3. Keep request parsing concerns separate from identity establishment.
+4. Consume authenticated context from `request.user` / `request.auth` only after auth runs.
+5. Apply guards for authorization and ownership checks.
+6. Normalize `401` and `403` behavior intentionally and document exclusions.
+7. Store and compare secrets safely.
 
 ## Implementation Rules
 
-- Keep authentication (who are you) separate from authorization (what can you do).
-- Prefer built-in security backends before writing custom middleware.
+- Keep authentication separate from authorization.
+- Parse client inputs with `litestar-requests`; do not re-parse headers or cookies manually inside guards unless the protocol truly requires it.
+- Treat `request.user` and `request.auth` as authenticated context, not as generic request-parsing helpers.
+- Prefer built-in security backends before custom middleware.
 - Keep guard functions deterministic and side-effect free.
-- Use explicit allow/deny rules; avoid implicit defaults you cannot audit quickly.
-- Do not hardcode key material or token secrets.
-- Make exclusion rules narrow and reviewable.
+- Make exclusion rules narrow, explicit, and tested.
+- Use `NotAuthorizedException` for identity failures and `PermissionDeniedException` for insufficient privileges unless the project has a documented alternative contract.
+- Keep secrets in `SecretString` / `SecretBytes` and compare them with constant-time primitives when relevant.
 
-## Quick Patterns
+## Decision Guide
 
-### Pattern 1: Guard-based authorization
-
-```python
-from litestar import get
-from litestar.connection import ASGIConnection
-from litestar.exceptions import PermissionDeniedException
-
-
-def require_admin(connection: ASGIConnection, _: object) -> None:
-    user = connection.user
-    if not user or "admin" not in getattr(user, "roles", []):
-        raise PermissionDeniedException("admin role required")
-
-@get("/admin", guards=[require_admin])
-async def admin_dashboard() -> dict[str, str]:
-    return {"status": "ok"}
-```
-
-### Pattern 2: Opt-based exclusions for public routes
-
-```python
-from litestar import Litestar, get
-from litestar.security.jwt import JWTAuth
-
-
-@get("/health", opt={"exclude_from_auth": True})
-async def healthcheck() -> dict[str, str]:
-    return {"status": "ok"}
-
-app = Litestar(
-    route_handlers=[healthcheck],
-    on_app_init=[
-        JWTAuth[dict[str, object]](
-            token_secret="replace-in-production",
-            retrieve_user_handler=lambda token, _: token,
-            exclude_opt_key="exclude_from_auth",
-            exclude=["/schema"],
-        ).on_app_init
-    ],
-)
-```
-
-### Pattern 3: Safe secret handling
-
-```python
-from litestar.datastructures.secret_values import SecretString
-
-jwt_secret = SecretString("super-secret")
-# Avoid logging plain secrets; use .get_secret_value() only where required.
-```
+- Use `litestar-authentication` when the task is mostly identity establishment and token/session flow wiring.
+- Use this skill when auth, authorization, secret handling, exclusion rules, and failure behavior must be reviewed together.
+- Use guards when policy depends on authenticated context plus route intent.
+- Use route `opt` and `exclude_opt_key` only when public-route exceptions are deliberate and auditable.
 
 ## Validation Checklist
 
-- Confirm unauthenticated requests receive `401` on protected routes.
-- Confirm unauthorized (insufficient role/scope) requests receive `403`.
-- Confirm public routes stay public only when explicitly marked.
-- Confirm revoked and expired JWTs are rejected.
-- Confirm token audience/issuer validation is enabled where applicable.
-- Confirm secrets do not appear in logs, tracebacks, or repr output.
-- Confirm test coverage includes both success and negative security paths.
+- Confirm unauthenticated requests receive the intended `401` behavior.
+- Confirm insufficient privileges receive the intended `403` behavior.
+- Confirm guards accumulate across Litestar layers where expected.
+- Confirm public-route exclusions are minimal and explicit.
+- Confirm secrets never appear in logs, repr output, or error payloads.
+- Confirm request parsing and auth context responsibilities stay separate.
+- Confirm tests cover missing credentials, invalid credentials, expired or revoked tokens, and insufficient permissions.
 
 ## Cross-Skill Handoffs
 
 - Use `litestar-authentication` when the task is narrow and auth-only.
-- Use `litestar-exception-handling` to standardize `401/403` response contracts.
-- Use `litestar-testing` for auth boundary and regression tests.
-- Use `litestar-openapi` to publish security scheme docs for clients.
+- Use `litestar-requests` for request parsing, secret-bearing headers/body parameters, and multipart/form transport rules.
+- Use `litestar-exception-handling` to standardize `401` and `403` response contracts.
+- Use `litestar-testing` for auth boundary, guard, exclusion, and regression tests.
+- Use `litestar-openapi` to publish security schemes and auth docs for clients.
 
 ## Litestar References
 
-- https://docs.litestar.dev/2/usage/security
-- https://docs.litestar.dev/2/usage/security/abstract-authentication-middleware.html
-- https://docs.litestar.dev/2/usage/security/security-backends.html
-- https://docs.litestar.dev/2/usage/security/guards.html
-- https://docs.litestar.dev/2/usage/security/excluding-and-including-endpoints.html
-- https://docs.litestar.dev/2/usage/security/jwt.html
-- https://docs.litestar.dev/2/usage/security/secret-datastructures.html
+- https://docs.litestar.dev/latest/usage/security/index.html
+- https://docs.litestar.dev/latest/usage/security/abstract-authentication-middleware.html
+- https://docs.litestar.dev/latest/usage/security/security-backends.html
+- https://docs.litestar.dev/latest/usage/security/guards.html
+- https://docs.litestar.dev/latest/usage/security/excluding-and-including-endpoints.html
+- https://docs.litestar.dev/latest/usage/security/jwt.html
+- https://docs.litestar.dev/latest/usage/security/secret-datastructures.html

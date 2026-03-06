@@ -1,3 +1,3 @@
 display_name: "Litestar Authentication"
-short_description: "Implement Litestar authentication and authorization using custom authentication middleware, built-in security backends, guards, endpoint inclusion/exclusion rules, JWT backends, and secret handling."
+short_description: "Implement Litestar authentication with middleware, built-in backends, typed auth context, and explicit public-route exclusions."
 default_prompt: "Use the litestar-authentication skill and follow its workflow for this Litestar task."

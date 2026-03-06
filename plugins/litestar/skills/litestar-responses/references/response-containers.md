@@ -55,6 +55,7 @@ Guidance:
 - Static headers compose across layers.
 - Use a plain mapping when no OpenAPI metadata is needed.
 - Use `ResponseHeader` when descriptions or documentation-only behavior matter.
+- Document headers explicitly when clients rely on them.
 
 ## Dynamic Headers
 
@@ -151,6 +152,7 @@ Guidance:
 
 - Keep redirect status and target explicit.
 - Test both status code and `Location` header.
+- Verify that the generated docs do not imply a JSON body when the route actually redirects.
 
 ## File Responses
 
@@ -171,6 +173,7 @@ Guidance:
 - Prefer `File` over hand-built streaming for file downloads.
 - Large files will stream automatically based on `chunk_size`.
 - Use named file systems or fsspec backends for S3 or other remote storage.
+- Keep OpenAPI descriptions explicit because file-download behavior is often not obvious from the path alone.
 
 ## Streaming Responses
 

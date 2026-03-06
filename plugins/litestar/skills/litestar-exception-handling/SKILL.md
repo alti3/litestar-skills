@@ -20,6 +20,7 @@ description: Implement Litestar exception handling with HTTPException, built-in 
 - Use `HTTPException` or its subclasses when the handler should raise an HTTP-aware error directly.
 - Use exception handlers to translate domain or library exceptions into transport-safe responses.
 - Keep error payload schemas stable across handlers and layers.
+- Keep documented error behavior aligned with `litestar-openapi` route metadata and security docs.
 - Redact or replace validation and internal error details when exposing raw messages would leak implementation details.
 - Prefer specific exception mappings over broad catch-alls that hide root causes.
 - Keep handler registration close to the layer that owns the behavior, except for `404` and `405`, which must be handled at app scope.
@@ -62,6 +63,7 @@ Read only the sections you need:
 - Confirm app startup and configuration errors are not treated as request-time API responses.
 - Confirm `404` and `405` customization is registered on the `Litestar` app instance.
 - Confirm payload shape is consistent across handlers, routes, and layers.
+- Confirm documented error responses and raised exceptions match the real contract.
 - Confirm validation failures do not leak more detail than intended.
 - Confirm unhandled exceptions still surface as `500` responses and remain observable in logs.
 - Confirm route-specific overrides do not accidentally shadow broader app policy.
@@ -72,6 +74,7 @@ Read only the sections you need:
 - Use `litestar-authentication` or `litestar-security` for auth-specific `401` and `403` strategy.
 - Use `litestar-responses` when the main task is response formatting rather than exception mapping.
 - Use `litestar-testing` for exhaustive failure-path assertions and override coverage.
+- Use `litestar-openapi` when documented error responses or security-related failure docs need to match runtime behavior.
 - Use `litestar-logging` when exception observability, redaction, or structured logging is part of the task.
 
 ## Litestar References

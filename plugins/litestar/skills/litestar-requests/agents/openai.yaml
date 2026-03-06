@@ -1,3 +1,3 @@
 display_name: "Litestar Requests"
-short_description: "Handle Litestar request parsing and validation for path/query/header/cookie/body/multipart inputs with explicit typing and deterministic client-error handling."
+short_description: "Handle Litestar request parsing for parameters, bodies, Request access, forms, multipart data, and uploads."
 default_prompt: "Use the litestar-requests skill and follow its workflow for this Litestar task."

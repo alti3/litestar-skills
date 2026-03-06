@@ -1,6 +1,6 @@
 ---
 name: litestar-app-setup
-description: Build and configure Litestar application entrypoints, app-level configuration, startup/shutdown lifecycle, lifespan context managers, application state, hooks, and layered parameter precedence. Use when creating a new Litestar service, restructuring app initialization, or setting app-level defaults. Do not use for isolated handler logic that belongs in routing, requests, responses, or DTO-focused skills.
+description: Build and configure Litestar application entrypoints, app-level configuration, startup/shutdown lifecycle, lifespan context managers, application state, hooks, and layered parameter precedence. Use when creating a new Litestar service, restructuring app initialization, or setting app-level defaults. Do not use for isolated handler logic that belongs in routing, requests, responses, DTO-focused skills, or the in-process event bus handled by `litestar-events`.
 ---
 
 # App Setup
@@ -73,6 +73,11 @@ async def close_db_connection(app: Litestar) -> None:
 
 app = Litestar(on_startup=[get_db_connection], on_shutdown=[close_db_connection], route_handlers=[...])
 ```
+
+Boundary note:
+
+- These hooks manage app lifecycle resources.
+- They are not Litestar's event bus. Use `litestar-events` when emitting decoupled in-process side effects with `app.emit(...)` and listeners.
 
 ## Lifespan Context Managers
 
@@ -231,7 +236,8 @@ Layered parameters documented on the Applications page:
 ## Cross-Skill Handoffs
 
 - Use `litestar-routing` for endpoint grouping and path design.
-- Use `litestar-events` and `litestar-lifecycle-hooks` for deeper lifecycle orchestration.
+- Use `litestar-events` for in-process event-bus listeners and `app.emit(...)`, not startup/shutdown ownership.
+- Use `litestar-lifecycle-hooks` for request/response interception and cross-cutting instrumentation.
 - Use `litestar-dependency-injection` for dependency scoping across layers.
 - Use `litestar-logging`, `litestar-middleware`, and `litestar-openapi` for domain-specific configuration depth.
 

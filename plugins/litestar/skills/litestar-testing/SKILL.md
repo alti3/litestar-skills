@@ -1,6 +1,6 @@
 ---
 name: litestar-testing
-description: Test Litestar applications with TestClient, AsyncTestClient, create_test_client, websocket test helpers, dependency overrides, mocked dependencies, lifecycle-aware fixtures, and deterministic success and failure assertions. Use when adding or fixing Litestar test coverage, including exception contracts, override precedence, websocket behavior, or live-server-only response patterns. Do not use as a substitute for production observability or runtime debugging strategy.
+description: Test Litestar applications with TestClient, AsyncTestClient, create_test_client, websocket test helpers, dependency overrides, mocked dependencies, lifecycle-aware fixtures, and deterministic success and failure assertions. Use when adding or fixing Litestar test coverage, including exception contracts, override precedence, websocket behavior, event-bus side effects, or live-server-only response patterns. Do not use as a substitute for production observability or runtime debugging strategy.
 ---
 
 # Testing
@@ -11,7 +11,7 @@ description: Test Litestar applications with TestClient, AsyncTestClient, create
 2. Build fixtures with deterministic configuration, dependencies, and lifecycle boundaries.
 3. Isolate external I/O with injected fakes or mocked dependencies instead of monkeypatching internals.
 4. Assert full contracts: status code, body, headers, cookies, side effects, and failure payload shape.
-5. Cover error paths deliberately, including validation failures, app-level exception mappings, and layered override precedence.
+5. Cover error paths deliberately, including validation failures, app-level exception mappings, event-listener failures, layered override precedence, and schema/docs regressions.
 
 ## Core Rules
 
@@ -36,7 +36,7 @@ description: Test Litestar applications with TestClient, AsyncTestClient, create
 Read only the sections you need:
 
 - For client selection, fixtures, async event-loop behavior, websocket tests, blocking-portal usage, and subprocess live-server helpers, read [references/client-patterns.md](references/client-patterns.md).
-- For dependency overrides, mocked dependencies, exception-contract assertions, `404`/`405` testing, and layered precedence tests, read [references/failure-patterns.md](references/failure-patterns.md).
+- For dependency overrides, mocked dependencies, exception-contract assertions, event-emission tests, listener-failure tests, schema/docs regressions, `404`/`405` testing, and layered precedence tests, read [references/failure-patterns.md](references/failure-patterns.md).
 
 ## Recommended Defaults
 
@@ -61,16 +61,20 @@ Read only the sections you need:
 - Confirm startup and shutdown behavior are exercised where relevant.
 - Confirm dependency overrides and mocked services are scoped to the test.
 - Confirm expected failures produce stable payloads, headers, and status codes.
+- Confirm emitted events and listener side effects are asserted when the feature depends on the event bus.
 - Confirm app-level `404` and `405` handlers are tested at app scope.
 - Confirm layered overrides behave as expected at app, router, controller, and handler scope.
 - Confirm websocket tests assert both send and receive behavior.
 - Confirm live-server helpers are used for scenarios the in-process client cannot model correctly.
+- Confirm generated schema/docs regressions are covered when response or error contracts change.
 
 ## Cross-Skill Handoffs
 
 - Use `litestar-dependency-injection` to design override-friendly providers and scope rules.
 - Use `litestar-exception-handling` to standardize failure envelopes before locking tests.
+- Use `litestar-events` when tests depend on event IDs, listeners, and custom emitter behavior.
 - Use `litestar-responses` for stream, redirect, file, and SSE contract details.
+- Use `litestar-openapi` when tests must lock down schema or docs behavior.
 - Use `litestar-websockets` when the main challenge is websocket endpoint design rather than test harness setup.
 
 ## Litestar References

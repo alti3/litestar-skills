@@ -134,6 +134,18 @@ Use this when:
 - Many handlers need the same encoding behavior.
 - OpenAPI and runtime serialization should remain aligned.
 
+
+## OpenAPI Alignment
+
+Response design and OpenAPI documentation should move together.
+
+Guidance:
+
+- Keep the return annotation precise so Litestar can generate the correct schema.
+- Use explicit status codes whenever runtime behavior differs from the decorator default.
+- If a route returns `204 No Content`, keep both runtime and schema body-free.
+- When response modeling changes materially, verify the generated schema and update `litestar-openapi` route metadata only where the default schema is not enough.
+
 ## Background Tasks
 
 All Litestar responses and response containers accept a `background` kwarg.
