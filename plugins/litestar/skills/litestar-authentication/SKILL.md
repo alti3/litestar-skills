@@ -7,7 +7,7 @@ description: Implement Litestar authentication with custom authentication middle
 
 ## Execution Workflow
 
-1. Choose the identity mechanism first: session, JWT header, JWT cookie, OAuth2 password bearer, or custom middleware.
+1. Choose the identity mechanism first: session, JWT header, JWT cookie, OAuth2 password bearer, or custom middleware based on client and trust boundaries.
 2. Attach authentication once at app scope with `on_app_init` or middleware.
 3. Configure exclusion rules explicitly for login, schema, health, and other public routes.
 4. Use `request.user` and `request.auth` only after authentication has been established.
