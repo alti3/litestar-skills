@@ -1,0 +1,3 @@
+display_name: "Advanced Alchemy Caching"
+short_description: "Tune cache-aware Advanced Alchemy use."
+default_prompt: "Use the advanced-alchemy-caching skill and follow its workflow for this Advanced Alchemy task."

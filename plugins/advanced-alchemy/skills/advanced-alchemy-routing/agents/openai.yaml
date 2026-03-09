@@ -1,0 +1,3 @@
+display_name: "Advanced Alchemy Routing"
+short_description: "Expose Advanced Alchemy CRUD routes."
+default_prompt: "Use the advanced-alchemy-routing skill and follow its workflow for this Advanced Alchemy task."

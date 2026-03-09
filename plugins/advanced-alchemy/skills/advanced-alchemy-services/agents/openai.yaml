@@ -1,0 +1,3 @@
+display_name: "Advanced Alchemy Services"
+short_description: "Build Advanced Alchemy service layers."
+default_prompt: "Use the advanced-alchemy-services skill and follow its workflow for this Advanced Alchemy task."

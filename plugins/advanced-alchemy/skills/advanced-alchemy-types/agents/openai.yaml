@@ -1,0 +1,3 @@
+display_name: "Advanced Alchemy Types"
+short_description: "Apply Advanced Alchemy custom types."
+default_prompt: "Use the advanced-alchemy-types skill and follow its workflow for this Advanced Alchemy task."

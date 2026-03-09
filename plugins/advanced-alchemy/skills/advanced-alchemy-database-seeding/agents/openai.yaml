@@ -1,0 +1,3 @@
+display_name: "Advanced Alchemy Database Seeding"
+short_description: "Seed data with Advanced Alchemy."
+default_prompt: "Use the advanced-alchemy-database-seeding skill and follow its workflow for this Advanced Alchemy task."

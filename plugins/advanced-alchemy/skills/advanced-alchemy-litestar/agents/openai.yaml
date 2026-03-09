@@ -1,0 +1,3 @@
+display_name: "Advanced Alchemy Litestar"
+short_description: "Integrate Advanced Alchemy with Litestar."
+default_prompt: "Use the advanced-alchemy-litestar skill and follow its workflow for this Advanced Alchemy task."
